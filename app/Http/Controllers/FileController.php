@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class FileController extends Controller
 {
     /**
-     * Display a listing of the file.
+     * Display a listing of the files.
      *
      * @return \Illuminate\Http\Response
      */
@@ -18,13 +18,24 @@ class FileController extends Controller
     }
 
     /**
-     * Show the form for add a new file.
+     * Show the form for creating a new file.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('file/create');
+    }
+
+    /**
+     * Store a newly created file in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        var_dump($request->all());
     }
 
     /**

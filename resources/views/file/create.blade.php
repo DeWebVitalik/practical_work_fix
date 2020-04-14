@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{route('file.create')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('file.store')}}" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 {{csrf_field()}}
                                 <div class="col-md-12">
