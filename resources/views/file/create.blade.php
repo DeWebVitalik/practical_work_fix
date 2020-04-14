@@ -12,20 +12,38 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="col-form-label" for="comment">Comment</label>
-                                        <textarea class="form-control" id="comment" name="comment"></textarea>
+                                        <textarea class="form-control @error('comment') is-invalid @enderror"
+                                                  id="comment" name="comment"></textarea>
+                                        @error('comment')
+                                        <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-form-label" for="file">File</label>
-                                        <input type="file" name="file" class="form-control-file">
+                                        <input type="file" name="file"
+                                               class="form-control-file @error('file') is-invalid @enderror">
+                                        @error('file')
+                                        <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-form-label" for="date">Date</label>
-                                        <input type="text" class="form-control" name="date" id="date"
+                                        <input type="text" class="form-control @error('date') is-invalid @enderror"
+                                               name="date" id="date"
                                                placeholder="Enter date">
+                                        @error('date')
+                                        <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-12">

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddFileRequest;
 use App\UserFiles;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
     /**
-     * Display a listing of the files.
+     * Display a listing of the file.
      *
      * @return \Illuminate\Http\Response
      */
@@ -18,7 +19,7 @@ class FileController extends Controller
     }
 
     /**
-     * Show the form for creating a new file.
+     * Show the form for add a new file.
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,7 +34,7 @@ class FileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddFileRequest $request)
     {
         var_dump($request->all());
     }
