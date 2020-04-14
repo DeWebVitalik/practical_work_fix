@@ -37,7 +37,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label" for="date">Date</label>
                                         <input type="text" class="form-control @error('date') is-invalid @enderror"
-                                               name="date" id="date"
+                                               name="date_remove" id="date"
                                                placeholder="Enter date">
                                         @error('date')
                                         <span class="invalid-feedback">

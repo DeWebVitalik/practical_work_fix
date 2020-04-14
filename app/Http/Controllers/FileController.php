@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddFileRequest;
+use App\Services\FileService;
 use App\UserFiles;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
+    protected FileService $service;
+
+    public function __construct(FileService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the file.
      *
@@ -31,18 +39,21 @@ class FileController extends Controller
     /**
      * Store a newly created file in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AddFileRequest $request
      */
     public function store(AddFileRequest $request)
     {
-        var_dump($request->all());
+        if ($this->service->save($request)) {
+            return redirect()->route('file.index');
+        } else {
+            return redirect()->route('file.create');
+        }
     }
 
     /**
      * Display the specified file.
      *
-     * @param  \App\UserFiles  $userFiles
+     * @param \App\UserFiles $userFiles
      * @return \Illuminate\Http\Response
      */
     public function show(UserFiles $userFiles)
@@ -54,7 +65,7 @@ class FileController extends Controller
     /**
      * Remove the specified file from storage.
      *
-     * @param  \App\UserFiles  $userFiles
+     * @param \App\UserFiles $userFiles
      * @return \Illuminate\Http\Response
      */
     public function destroy(UserFiles $userFiles)
