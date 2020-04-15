@@ -47,9 +47,9 @@ class FileController extends Controller
     public function store(AddFileRequest $request)
     {
         if ($this->service->save($request)) {
-            return redirect()->route('files.index');
+            return redirect()->route('files.index')->with('success', 'File upload successfully.');
         } else {
-            return redirect()->route('files.create');
+            return redirect()->route('files.create')->with('error', 'File upload error.');
         }
     }
 
@@ -76,7 +76,7 @@ class FileController extends Controller
     {
         $file->delete();
 
-        return redirect()->route('files.index');
+        return redirect()->route('files.index')->with('success', 'File delete successfully.');
     }
 
 }

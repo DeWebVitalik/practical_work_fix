@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
+    <div class="row">
+        <div class="col-md-12">
             <h5>Total files: {{ $files->total() }}</h5>
             <table class="table table-striped">
                 <thead class="thead-dark">
