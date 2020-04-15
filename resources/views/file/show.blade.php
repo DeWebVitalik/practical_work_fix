@@ -2,6 +2,9 @@
 @section('title')
     @lang('file-show.title',['name'=>$file->file_name])
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('file-show',$file) }}
+@endsection
 @section('content')
     <div class="card">
         <div class="card-header">

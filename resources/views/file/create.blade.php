@@ -2,6 +2,9 @@
 @section('title')
     @lang('file-create.title')
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('file-add') }}
+@endsection
 @section('content')
     <div class="card">
         <div class="card-body">

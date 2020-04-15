@@ -84,28 +84,34 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-12">
+                    @yield('breadcrumbs')
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-3">
                     @widget('Menu',
                     [
-                        [
-                            'name'=>__('menu.dashboard'),
-                            'link'=>route('home'),
-                            'icon'=>'tachometer'
-                        ],
+                    [
+                    'name'=>__('menu.dashboard'),
+                    'link'=>route('home'),
+                    'icon'=>'tachometer'
+                    ],
 
-                        [
-                            'name'=>__('menu.files'),
-                            'link'=>route('files.index'),
-                            'icon'=>'files-o'
-                        ],
+                    [
+                    'name'=>__('menu.files'),
+                    'link'=>route('files.index'),
+                    'icon'=>'files-o'
+                    ],
 
-                        [
-                            'name'=>__('menu.links'),
-                            'link'=>'#',
-                            'icon'=>'link'
-                        ],
+                    [
+                    'name'=>__('menu.links'),
+                    'link'=>'#',
+                    'icon'=>'link'
+                    ],
                     ])
                 </div>
+
                 <div class="col-md-9">
                     @yield('content')
                 </div>

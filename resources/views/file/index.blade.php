@@ -2,6 +2,9 @@
 @section('title')
     @lang('file-index.title')
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('files') }}
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-6">
