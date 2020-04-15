@@ -6,6 +6,7 @@ use App\Http\Requests\AddFileRequest;
 use App\Services\FileService;
 use App\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
 {
@@ -24,7 +25,12 @@ class FileController extends Controller
     public function index()
     {
         return view('file/index', [
-            'files' => File::orderBy('created_at', 'DESC')->paginate(10)
+            'files' => File::orderBy('created_at', 'DESC')
+                ->where([
+                    ['delete', File::NOT_DELETED],
+                    ['user_id', Auth::id()]
+                ])
+                ->paginate(10)
         ]);
     }
 

@@ -11,7 +11,8 @@
             <h5>@lang('file-index.text_total',['count'=>$files->total()])</h5>
         </div>
         <div class="col-md-6">
-            <a href="{{ route('files.create') }}" class="btn btn-outline-primary btn-sm float-right mb-1">@lang('file-index.button_add_file')</a>
+            <a href="{{ route('files.create') }}"
+               class="btn btn-outline-primary btn-sm float-right mb-1">@lang('file-index.button_add_file')</a>
         </div>
     </div>
 
@@ -21,6 +22,7 @@
             <th scope="col">#</th>
             <th scope="col">@lang('file-index.table_column_file_name')</th>
             <th scope="col">@lang('file-index.table_column_upload_date')</th>
+            <th scope="col">@lang('file-index.table_column_date_remove')</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -30,6 +32,7 @@
                 <th scope="row"><b>{{ $key+1 }}</b></th>
                 <td>{{  $file->file_name }}</td>
                 <td>{{  $file->created_at }}</td>
+                <td>{{  $file->date_remove }}</td>
                 <td>
                     <div class="float-right ml-1">
                         @include('components/delete-file',compact('file'))
@@ -41,11 +44,13 @@
                 </td>
             </tr>
         @empty
-            <div class="col-md-12 text-center">
-                <h3 class="pb-3 mb-4border-bottom">
-                    Posts not found
-                </h3>
-            </div>
+            <tr>
+                <td colspan="5">
+                    <h3 class="text-center">
+                        Files not found
+                    </h3>
+                </td>
+            </tr>
         @endforelse
         </tbody>
     </table>

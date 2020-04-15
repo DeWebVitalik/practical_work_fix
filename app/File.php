@@ -41,8 +41,8 @@ class File extends Model
      *
      * @return string
      */
-    public function getRemoveDateAttribute($value)
+    public function getDateRemoveAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-y H:i');
+        return Carbon::parse($value)->format('d-m-y');
     }
 }
