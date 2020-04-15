@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class File extends Model
 {
@@ -22,5 +23,25 @@ class File extends Model
     public function setUserIdAttribute()
     {
         $this->attributes['user_id'] = Auth::id();
+    }
+
+    /**
+     * Format created_at
+     *
+     * @return string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('d-m-y H:i');
+    }
+
+    /**
+     * Format remove_date
+     *
+     * @return string
+     */
+    public function getRemoveDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('d-m-y H:i');
     }
 }

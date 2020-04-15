@@ -20,7 +20,11 @@
                         <td>{{  $file->file_name }}</td>
                         <td>{{  $file->created_at }}</td>
                         <td>
-                            <a href="{{route('files.show', $file->id)}}" class="btn btn-outline-primary btn-sm">
+                            <div class="float-right ml-1">
+                                @include('components/delete-file',compact('file'))
+                            </div>
+                            <a href="{{route('files.show', $file->id)}}"
+                               class="btn btn-outline-primary btn-sm float-right">
                                 View file
                             </a>
                         </td>

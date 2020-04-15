@@ -47,19 +47,21 @@ class FileController extends Controller
     public function store(AddFileRequest $request)
     {
         if ($this->service->save($request)) {
-            return redirect()->route('file.index');
+            return redirect()->route('files.index');
         } else {
-            return redirect()->route('file.create');
+            return redirect()->route('files.create');
         }
     }
 
     /**
      * Display the specified file.
      *
-     * @param File $userFile
+     * @param File $file
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(File $file)
     {
+        return view('file.show', compact('file'));
     }
 
 
@@ -74,7 +76,7 @@ class FileController extends Controller
     {
         $file->delete();
 
-        return redirect()->route('file.index');
+        return redirect()->route('files.index');
     }
 
 }
