@@ -89,17 +89,20 @@
                     [
                         [
                             'name'=>__('menu.dashboard'),
-                            'link'=>route('home')
+                            'link'=>route('home'),
+                            'icon'=>'tachometer'
                         ],
 
                         [
                             'name'=>__('menu.files'),
-                            'link'=>route('files.index')
+                            'link'=>route('files.index'),
+                            'icon'=>'files-o'
                         ],
 
                         [
                             'name'=>__('menu.links'),
-                            'link'=>'#'
+                            'link'=>'#',
+                            'icon'=>'link'
                         ],
                     ])
                 </div>
