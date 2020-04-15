@@ -17,13 +17,13 @@ class FileService
         $userFile->fill([
             'file_name' => $fileName,
             'comment' => $request->comment,
-            'date_remove' => $this->DateRemoveInTimestamp($request->date_remove)
+            'date_remove' => $this->dateRemoveInTimestamp($request->date_remove)
         ]);
 
         return $userFile->save();
     }
 
-    protected function DateRemoveInTimestamp(string $date = null)
+    protected function dateRemoveInTimestamp(string $date = null)
     {
         if (!$date) {
             return null;
