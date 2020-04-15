@@ -83,7 +83,30 @@
                     @include('components/alert')
                 </div>
             </div>
-            @yield('content')
+            <div class="row">
+                <div class="col-md-3">
+                    @widget('Menu',
+                    [
+                        [
+                            'name'=>__('menu.dashboard'),
+                            'link'=>route('home')
+                        ],
+
+                        [
+                            'name'=>__('menu.files'),
+                            'link'=>route('files.index')
+                        ],
+
+                        [
+                            'name'=>__('menu.links'),
+                            'link'=>'#'
+                        ],
+                    ])
+                </div>
+                <div class="col-md-9">
+                    @yield('content')
+                </div>
+            </div>
         </div>
     </main>
 </div>
