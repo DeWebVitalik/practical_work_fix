@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\AddFileRequest;
 use App\File;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class FileService
 {
@@ -15,6 +16,7 @@ class FileService
         $userFile = new File();
 
         $userFile->fill([
+            'user_id' => Auth::id(),
             'file_name' => $fileName,
             'comment' => $request->comment,
             'date_remove' => $this->dateRemoveInTimestamp($request->date_remove)

@@ -9,6 +9,13 @@ use Carbon\Carbon;
 class File extends Model
 {
     /**
+     * The storage format of the model's date columns.
+     *
+     * @var string
+     */
+    protected $dateFormat = 'U';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -17,13 +24,6 @@ class File extends Model
         'user_id', 'file_name', 'comment', 'date_remove'
     ];
 
-    /**
-     * Set user_id
-     */
-    public function setUserIdAttribute()
-    {
-        $this->attributes['user_id'] = Auth::id();
-    }
 
     /**
      * Format created_at
