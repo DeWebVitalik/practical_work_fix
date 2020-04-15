@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddFileRequest;
+use App\Http\Requests\FileRequest;
 use App\Services\FileService;
 use App\File;
 use Illuminate\Http\Request;
@@ -47,10 +47,10 @@ class FileController extends Controller
     /**
      * Store a newly created file in storage.
      *
-     * @param AddFileRequest $request
+     * @param FileRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(AddFileRequest $request)
+    public function store(FileRequest $request)
     {
         if ($this->service->save($request)) {
             return redirect()->route('files.index')->with('success', __('alert-message.upload_success'));

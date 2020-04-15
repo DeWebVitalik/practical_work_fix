@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Requests\AddFileRequest;
+use App\Http\Requests\FileRequest;
 use App\File;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class FileService
     public const PATH_USER_FILES = 'public/user-files/';
 
 
-    public function save(AddFileRequest $request)
+    public function save(FileRequest $request)
     {
         $fileName = $this->uploadFile($request);
 
@@ -47,7 +47,7 @@ class FileService
         return Carbon::parse($date)->timestamp;
     }
 
-    protected function uploadFile(AddFileRequest $request)
+    protected function uploadFile(FileRequest $request)
     {
         if (!$request->hasFile('file')) {
             throw new \Exception('File not found');
