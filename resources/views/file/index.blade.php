@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+    @lang('file-index.title')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -8,8 +10,8 @@
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">File name</th>
-                    <th scope="col">Upload date</th>
+                    <th scope="col">@lang('file-index.table_column_file_name')</th>
+                    <th scope="col">@lang('file-index.table_column_upload_date')</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>

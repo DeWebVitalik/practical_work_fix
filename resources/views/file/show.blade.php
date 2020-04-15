@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+    @lang('file-show.title',['name'=>$file->file_name])
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -17,11 +19,11 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-left">
-                        <h6>Upload date: <b>{{ $file->created_at }}</b></h6>
+                        <h6>@lang('file-show.upload_date'): <b>{{ $file->created_at }}</b></h6>
                     </div>
                     @if($file->remove_date)
                         <div class="float-right">
-                            <h6>Remove date: <b>{{ $file->remove_date }}</b></h6>
+                            <h6>@lang('file-show.remove_date'): <b>{{ $file->remove_date }}</b></h6>
                         </div>
                     @endif
                 </div>

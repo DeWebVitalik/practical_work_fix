@@ -1,16 +1,19 @@
 @extends('layouts.app')
-
+@section('title')
+    @lang('file-create.title')
+@endsection
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{route('file.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('files.store')}}" method="post" enctype="multipart/form-data">
                         <div class="row">
                             {{csrf_field()}}
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-form-label" for="comment">Comment</label>
+                                    <label class="col-form-label"
+                                           for="comment">@lang('file-create.label_comment')</label>
                                     <textarea class="form-control @error('comment') is-invalid @enderror"
                                               id="comment" name="comment"></textarea>
                                     @error('comment')
@@ -22,7 +25,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-form-label" for="file">File</label>
+                                    <label class="col-form-label" for="file">@lang('file-create.label_file')</label>
                                     <input type="file" name="file"
                                            class="form-control-file @error('file') is-invalid @enderror">
                                     @error('file')
@@ -34,7 +37,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-form-label" for="date">Date</label>
+                                    <label class="col-form-label" for="date">@lang('file-create.label_date_remove')</label>
                                     <input type="text" class="form-control @error('date') is-invalid @enderror"
                                            name="date_remove" id="date"
                                            placeholder="Enter date">
@@ -46,7 +49,8 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-success float-right">Save</button>
+                                <button type="submit"
+                                        class="btn btn-success float-right">@lang('file-create.button')</button>
                             </div>
                         </div>
                     </form>
