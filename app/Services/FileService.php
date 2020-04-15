@@ -6,6 +6,7 @@ use App\Http\Requests\AddFileRequest;
 use App\File;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
@@ -26,6 +27,15 @@ class FileService
         ]);
 
         return $userFile->save();
+    }
+
+    public function delete(File $file)
+    {
+        if (!Storage::delete($this->getUserPersonalPath() . '/' . $file->file_name)) {
+            return false;
+        }
+        $file->delete = File::DELETED;
+        return $file->save();
     }
 
     protected function dateRemoveInTimestamp(string $date = null)

@@ -74,9 +74,11 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        $file->delete();
-
-        return redirect()->route('files.index')->with('success', __('alert-message.delete_success'));
+        if ($this->service->delete($file)) {
+            return redirect()->route('files.index')->with('success', __('alert-message.delete_success'));
+        } else {
+            return redirect()->route('files.index')->with('error', __('alert-message.delete_error'));
+        }
     }
 
 }
