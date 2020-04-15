@@ -24,3 +24,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::resource('files', 'FileController', ['only' => [
     'index', 'create', 'show', 'store', 'destroy'
 ]]);
+
+Route::resource('links', 'LinkController', ['only' => [
+    'index', 'create', 'store', 'destroy'
+]])->middleware('auth');
