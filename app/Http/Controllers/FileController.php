@@ -19,11 +19,13 @@ class FileController extends Controller
     /**
      * Display a listing of the file.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('file/index', [
+            'files' => UserFiles::orderBy('created_at', 'DESC')->paginate(10)
+        ]);
     }
 
     /**
