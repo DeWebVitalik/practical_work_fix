@@ -3,7 +3,15 @@
     @lang('file-index.title')
 @endsection
 @section('content')
-    <h5>Total files: {{ $files->total() }}</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <h5>@lang('file-index.text_total',['count'=>$files->total()])</h5>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ route('files.create') }}" class="btn btn-outline-primary btn-sm float-right mb-1">@lang('file-index.button_add_file')</a>
+        </div>
+    </div>
+
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr>
