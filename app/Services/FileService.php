@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class FileService
 {
+    public const PATH_USER_FILES = 'public/user-files/';
+
+
     public function save(AddFileRequest $request)
     {
         $fileName = $this->uploadFile($request);
@@ -41,7 +44,12 @@ class FileService
         }
 
         $fileName = $request->file('file')->getClientOriginalName();
-        $request->file('file')->storePubliclyAs('public/user-files', $fileName);
+        $request->file('file')->storePubliclyAs($this->getUserPersonalPath(), $fileName);
         return $fileName;
+    }
+
+    protected function getUserPersonalPath()
+    {
+        return self::PATH_USER_FILES . '/' . Auth::id();
     }
 }
