@@ -31,7 +31,7 @@ class FileController extends Controller
     /**
      * Show the form for add a new file.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -42,6 +42,7 @@ class FileController extends Controller
      * Store a newly created file in storage.
      *
      * @param AddFileRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AddFileRequest $request)
     {
@@ -65,8 +66,9 @@ class FileController extends Controller
     /**
      * Remove the specified file from storage.
      *
-     * @param \App\File $userFiles
-     * @return \Illuminate\Http\Response
+     * @param File $file
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(File $file)
     {
@@ -74,4 +76,5 @@ class FileController extends Controller
 
         return redirect()->route('file.index');
     }
+
 }
