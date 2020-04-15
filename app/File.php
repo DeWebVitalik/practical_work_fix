@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class UserFiles extends Model
+class File extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -23,5 +23,4 @@ class UserFiles extends Model
     {
         $this->attributes['user_id'] = Auth::id();
     }
-
 }

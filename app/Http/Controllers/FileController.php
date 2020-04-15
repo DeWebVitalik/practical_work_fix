@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddFileRequest;
 use App\Services\FileService;
-use App\UserFiles;
+use App\File;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -24,7 +24,7 @@ class FileController extends Controller
     public function index()
     {
         return view('file/index', [
-            'files' => UserFiles::orderBy('created_at', 'DESC')->paginate(10)
+            'files' => File::orderBy('created_at', 'DESC')->paginate(10)
         ]);
     }
 
@@ -55,23 +55,23 @@ class FileController extends Controller
     /**
      * Display the specified file.
      *
-     * @param \App\UserFiles $userFiles
-     * @return \Illuminate\Http\Response
+     * @param File $userFile
      */
-    public function show(UserFiles $userFiles)
+    public function show(File $file)
     {
-        //
     }
 
 
     /**
      * Remove the specified file from storage.
      *
-     * @param \App\UserFiles $userFiles
+     * @param \App\File $userFiles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserFiles $userFiles)
+    public function destroy(File $file)
     {
-        //
+        $file->delete();
+
+        return redirect()->route('file.index');
     }
 }

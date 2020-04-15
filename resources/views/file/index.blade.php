@@ -20,7 +20,7 @@
                         <td>{{  $file->file_name }}</td>
                         <td>{{  $file->created_at }}</td>
                         <td>
-                            <a href="{{route('file.show', $file->id)}}" class="btn btn-outline-primary btn-sm">
+                            <a href="{{route('files.show', $file->id)}}" class="btn btn-outline-primary btn-sm">
                                 View file
                             </a>
                         </td>

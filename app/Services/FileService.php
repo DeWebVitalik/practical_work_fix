@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\AddFileRequest;
-use App\UserFiles;
+use App\File;
 use Carbon\Carbon;
 
 class FileService
@@ -12,7 +12,7 @@ class FileService
     {
         $fileName = $this->uploadFile($request);
 
-        $userFile = new UserFiles();
+        $userFile = new File();
 
         $userFile->fill([
             'file_name' => $fileName,

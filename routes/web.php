@@ -21,6 +21,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('file', 'FileController', ['only' => [
+Route::resource('files', 'FileController', ['only' => [
     'index', 'create', 'show', 'store', 'destroy'
 ]]);
