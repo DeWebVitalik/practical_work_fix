@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    @lang('file-index.title')
+    @lang('file.index.title')
 @endsection
 @section('breadcrumbs')
     {{ Breadcrumbs::render('files') }}
@@ -8,12 +8,12 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <h5>@lang('file-index.text_total',['count'=>$files->total()])</h5>
+            <h5>@lang('file.index.text_total',['count'=>$files->total()])</h5>
         </div>
         <div class="col-md-6">
             <a href="{{ route('files.create') }}" class="btn btn-outline-primary btn-sm float-right mb-1">
                 <i class="fa fa-plus" aria-hidden="true"></i>
-                @lang('file-index.button_add_file')
+                @lang('file.index.button_add_file')
             </a>
         </div>
     </div>
@@ -22,9 +22,9 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">@lang('file-index.table_column_file_name')</th>
-            <th scope="col">@lang('file-index.table_column_upload_date')</th>
-            <th scope="col">@lang('file-index.table_column_date_remove')</th>
+            <th scope="col">@lang('file.index.table_column_file_name')</th>
+            <th scope="col">@lang('file.index.table_column_upload_date')</th>
+            <th scope="col">@lang('file.index.table_column_date_remove')</th>
             <th scope="col"></th>
         </tr>
         </thead>

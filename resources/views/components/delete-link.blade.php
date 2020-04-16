@@ -1,4 +1,4 @@
-<form onsubmit="if(confirm('@lang('link-delete.confirm')')){ return true }else{ return false }"
+<form onsubmit="if(confirm('@lang('link.delete.confirm')')){ return true }else{ return false }"
       action="{{ route('links.destroy',$link->id) }}" method="post">
     <input type="hidden" name="_method" value="DELETE">
     {{ csrf_field() }}

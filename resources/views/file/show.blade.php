@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    @lang('file-show.title',['name'=>$file->file_name])
+    @lang('file.show.title',['name'=>$file->file_name])
 @endsection
 @section('breadcrumbs')
     {{ Breadcrumbs::render('file-show',$file) }}
@@ -37,19 +37,19 @@
 
     <div class="card">
         <div class="card-header">
-            @lang('file-show.links')
+            @lang('file.show.links')
         </div>
         <div class="card-body">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="pills-general-tab" data-toggle="pill" href="#pills-general"
                        role="tab" aria-controls="pills-general"
-                       aria-selected="true">@lang('file-show.general_links')</a>
+                       aria-selected="true">@lang('file.show.general_links')</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="pills-single-view-tab" data-toggle="pill" href="#pills-single-view"
                        role="tab" aria-controls="pills-single-view"
-                       aria-selected="false">@lang('file-show.one_time_view_links')</a>
+                       aria-selected="false">@lang('file.show.one_time_view_links')</a>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
@@ -58,9 +58,9 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">@lang('file-show.table_column_link')</th>
-                            <th scope="col">@lang('file-show.table_column_created')</th>
-                            <th scope="col">@lang('file-show.table_column_views')</th>
+                            <th scope="col">@lang('file.show.table_column_link')</th>
+                            <th scope="col">@lang('file.show.table_column_created')</th>
+                            <th scope="col">@lang('file.show.table_column_views')</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -80,7 +80,7 @@
                             <tr class="general-empty-table">
                                 <td colspan="4">
                                     <h4 class="text-center">
-                                        @lang('file-show.links_not_found')
+                                        @lang('file.show.links_not_found')
                                     </h4>
                                 </td>
                             </tr>
@@ -93,9 +93,9 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">@lang('file-show.table_column_link')</th>
-                            <th scope="col">@lang('file-show.table_column_created')</th>
-                            <th scope="col">@lang('file-show.table_column_status')</th>
+                            <th scope="col">@lang('file.show.table_column_link')</th>
+                            <th scope="col">@lang('file.show.table_column_created')</th>
+                            <th scope="col">@lang('file.show.table_column_status')</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -107,8 +107,8 @@
                                 </td>
                                 <td>{{  $link->created_at }}</td>
                                 <td>{!! $link->views==0
-                                ? '<span class="text-success">'.__("file-show.active").'</span>'
-                                : '<span class="text-danger">'.__("file-show.not_active").'</span>' !!}</td>
+                                ? '<span class="text-success">'.__("file.show.active").'</span>'
+                                : '<span class="text-danger">'.__("file.show.not_active").'</span>' !!}</td>
                                 <td>
                                     @include('components.delete-link-ajax')
                                 </td>
@@ -117,7 +117,7 @@
                             <tr class="one-time-empty-table">
                                 <td colspan="4">
                                     <h4 class="text-center">
-                                        @lang('file-show.links_not_found')
+                                        @lang('file.show.links_not_found')
                                     </h4>
                                 </td>
                             </tr>
