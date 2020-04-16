@@ -28,3 +28,5 @@ Route::resource('files', 'FileController', ['only' => [
 Route::resource('links', 'LinkController', ['only' => [
     'index', 'create', 'store', 'destroy'
 ]])->middleware('auth');
+
+Route::get('view/{alias}', 'ViewController@index')->name('viewFile');
