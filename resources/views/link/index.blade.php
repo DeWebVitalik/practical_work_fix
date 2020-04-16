@@ -3,7 +3,7 @@
     @lang('link-index.title')
 @endsection
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('files') }}
+    {{ Breadcrumbs::render('links') }}
 @endsection
 @section('content')
     <h5>@lang('link-index.text_total',['count'=>$links->total()])</h5>

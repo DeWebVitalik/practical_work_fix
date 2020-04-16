@@ -11,6 +11,12 @@ Breadcrumbs::for('files', function ($trail) {
     $trail->push('Files', route('files.index'));
 });
 
+//Links
+Breadcrumbs::for('links', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Links', route('links.index'));
+});
+
 //Add file
 Breadcrumbs::for('file-add', function ($trail) {
     $trail->parent('home');
