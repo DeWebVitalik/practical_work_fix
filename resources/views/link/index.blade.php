@@ -32,7 +32,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="5">
+                <td colspan="6">
                     <h3 class="text-center">
                         @lang('link-index.links_not_found')
                     </h3>

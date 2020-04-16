@@ -7,10 +7,10 @@ use App\File;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\UserFilePath;
 
 class FileService
 {
-    public const PATH_USER_FILES = 'public/user-files/';
 
 
     public function save(FileRequest $request)
@@ -31,7 +31,7 @@ class FileService
 
     public function delete(File $file)
     {
-        if (!Storage::delete($this->getUserPersonalPath() . '/' . $file->file_name)) {
+        if (!Storage::delete(UserFilePath::getFilePath($file->file_name))) {
             return false;
         }
 
@@ -56,12 +56,8 @@ class FileService
         }
 
         $fileName = $request->file('file')->getClientOriginalName();
-        $request->file('file')->storePubliclyAs($this->getUserPersonalPath(), $fileName);
+        $request->file('file')->storePubliclyAs(UserFilePath::getUserPersonalPath(), $fileName);
         return $fileName;
     }
 
-    protected function getUserPersonalPath()
-    {
-        return self::PATH_USER_FILES . '/' . Auth::id();
-    }
 }

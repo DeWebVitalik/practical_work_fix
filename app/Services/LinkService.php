@@ -9,11 +9,10 @@ use App\Link;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Helpers\UserFilePath;
 
 class LinkService
 {
-    public const PATH_USER_FILES = 'public/user-files/';
-
     public function save(LinkRequest $request)
     {
         $link = Link::create([
@@ -28,7 +27,7 @@ class LinkService
     public function getFilePath(Link $link)
     {
 
-        $filePath = $this->getUserPersonalPath() . '/' . $link->file->file_name;
+        $filePath =UserFilePath::getFilePath($link->file->file_name);
         if (!Storage::exists($filePath)) {
             return false;
         }
@@ -44,8 +43,4 @@ class LinkService
         return true;
     }
 
-    protected function getUserPersonalPath()
-    {
-        return self::PATH_USER_FILES . '/' . Auth::id();
-    }
 }
