@@ -76,7 +76,7 @@ $('#add-link-form').submit(function (e) {
     }
 
     function setTr(res) {
-        let tr = '<tr>' +
+        let tr = '<tr id="row-' + res.link.id + '">' +
             '<td>' +
             '<div class="input-group">' +
             '<input type="text" id="link-' + res.link.id + '" class="form-control" value="' + res.link.alias + '">' +
@@ -89,14 +89,52 @@ $('#add-link-form').submit(function (e) {
             '</td>' +
             '<td>' + res.link.created_at + '</td>';
         if (res.link.single_view === 0) {
-            tr = tr + '<td>' + res.link.views + '</td></tr>';
+            tr = tr + '<td>' + res.link.views + '</td>' +
+                '<td>' +
+                '<button data-id="' + res.link.id + '" class="btn btn-outline-danger btn-sm delete-link-button">' +
+                '    <i class="fa fa-trash-o" aria-hidden="true"></i>' +
+                '</button>' +
+                '</td></tr>';
             $('.general-links-row').prepend(tr);
         } else {
             let columnStatus = res.link.views === 0
                 ? '<span class="text-success">Active</span>'
                 : '<span class="text-danger">Not active</span>';
-            tr = tr + "<td>" + columnStatus + "</td></tr>";
+            tr = tr + '<td>' + columnStatus + '</td>' +
+                '<td>' +
+                '<button data-id="' + res.link.id + '" class="btn btn-outline-danger btn-sm delete-link-button">' +
+                '    <i class="fa fa-trash-o" aria-hidden="true"></i>' +
+                '</button>' +
+                '</td></tr>';
             $('.one-time-links-row').prepend(tr);
         }
     }
+});
+
+//Ajax delete link
+$(document).on('click', '.delete-link-button', function () {
+    let button = $(this);
+    let id = button.attr('data-id');
+    $.ajax({
+        url: '/links/' + id,
+        type: 'DELETE',
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (res) {
+            $('#row-' + id).remove();
+            //show success
+            $('.alert-link-success').show(200);
+            $('.alert-link-success').text(res.success);
+        },
+        error: function () {
+            alert('Error deleting link');
+        }
+    });
+
+    //hide alerts
+    window.setTimeout(function () {
+        $('.alert-link').fadeOut(200);
+    }, 6000);
 });

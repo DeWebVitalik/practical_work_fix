@@ -6,6 +6,7 @@ use App\Http\Requests\LinkRequest;
 use App\Link;
 use App\Services\LinkService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LinkController extends Controller
 {
@@ -19,7 +20,7 @@ class LinkController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -35,7 +36,8 @@ class LinkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param FileRequest $request
+     * @param LinkRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(LinkRequest $request)
     {
@@ -56,13 +58,20 @@ class LinkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Link $link
-     * @return \Illuminate\Http\Response
+     * @param Link $link
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @throws /Exception
      */
-    public function destroy(Link $link)
+    public function destroy(Link $link, Request $request)
     {
         $link->delete();
-
-        return redirect()->route('links.index')->with('success', __('alert-message.link_delete_success'));
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => __('alert-message.link_delete_success')
+            ]);
+        } else {
+            return redirect()->route('links.index')->with('success', __('alert-message.link_delete_success'));
+        }
     }
 }

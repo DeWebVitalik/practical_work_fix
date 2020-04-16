@@ -61,22 +61,26 @@
                             <th scope="col">@lang('file-show.table_column_link')</th>
                             <th scope="col">@lang('file-show.table_column_created')</th>
                             <th scope="col">@lang('file-show.table_column_views')</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody class="general-links-row">
                         @forelse($generalLinks as $key=>$link)
-                            <tr>
+                            <tr id="row-{{ $link->id }}">
                                 <td>
                                     @include('components.file-link',compact('link'))
                                 </td>
                                 <td>{{  $link->created_at }}</td>
                                 <td>{{  $link->views }}</td>
+                                <td>
+                                    @include('components.delete-link-ajax')
+                                </td>
                             </tr>
                         @empty
                             <tr class="general-empty-table">
-                                <td colspan="3">
+                                <td colspan="4">
                                     <h4 class="text-center">
-                                        @lang('file-show.links_not_found');
+                                        @lang('file-show.links_not_found')
                                     </h4>
                                 </td>
                             </tr>
@@ -92,11 +96,12 @@
                             <th scope="col">@lang('file-show.table_column_link')</th>
                             <th scope="col">@lang('file-show.table_column_created')</th>
                             <th scope="col">@lang('file-show.table_column_status')</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody class="one-time-links-row">
                         @forelse($oneTimeLinks as $key=>$link)
-                            <tr>
+                            <tr id="row-{{ $link->id }}">
                                 <td>
                                     @include('components.file-link',compact('link'))
                                 </td>
@@ -104,12 +109,15 @@
                                 <td>{!! $link->views==0
                                 ? '<span class="text-success">'.__("file-show.active").'</span>'
                                 : '<span class="text-danger">'.__("file-show.not_active").'</span>' !!}</td>
+                                <td>
+                                    @include('components.delete-link-ajax')
+                                </td>
                             </tr>
                         @empty
                             <tr class="one-time-empty-table">
-                                <td colspan="3">
+                                <td colspan="4">
                                     <h4 class="text-center">
-                                        @lang('file-show.links_not_found');
+                                        @lang('file-show.links_not_found')
                                     </h4>
                                 </td>
                             </tr>
