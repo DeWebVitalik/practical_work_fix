@@ -10,6 +10,7 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 window.datepicker = require('bootstrap-datepicker');
 window.Clipboard = require('clipboard');
+
 //init datepicker for add file form
 $('#date').datepicker({
     autoclose: true,
@@ -34,10 +35,10 @@ $('#add-link-form').submit(function (e) {
             //reset form
             $form.trigger('reset');
             //hide error alerts
-            jQuery('.alert-link-error').hide(200);
+            $('.alert-link-error').hide(200);
             //show success
-            jQuery('.alert-link-success').show(200);
-            jQuery('.alert-link-success').text(res.success);
+            $('.alert-link-success').show(200);
+            $('.alert-link-success').text(res.success);
             //remove empty tr if exist
             clearTable(res);
             //set tr form res
@@ -46,75 +47,94 @@ $('#add-link-form').submit(function (e) {
         },
         error: function (res) {
             //clear error text
-            jQuery('.alert-link-error').text('');
+            $('.alert-link-error').text('');
             //hide success alert
-            jQuery('.alert-link-error').hide(200);
+            $('.alert-link-error').hide(200);
             //show errors
-            jQuery.each(res.responseJSON, function (key, value) {
+            $.each(res.responseJSON, function (key, value) {
                 jQuery('.alert-danger').show(200);
                 jQuery('.alert-danger').append('<p>' + value + '</p>');
             });
         }
     });
-    //disable submit
-    e.preventDefault();
-    //hide alerts
-    window.setTimeout(function () {
-        $('.alert-link').fadeOut(200);
-    }, 6000);
 
     function clearTable(res) {
+        let generalEmptyTable = $('.general-empty-table');
+        let oneTimeEmptyTable = $('.one-time-empty-table');
         if (res.link.single_view === 0) {
-            if ($('.general-empty-table').length) {
-                $('.general-empty-table').remove();
+            if (generalEmptyTable.length) {
+                generalEmptyTable.remove();
             }
         } else {
-            if ($('.one-time-empty-table').length) {
-                $('.one-time-empty-table').remove();
+            if (oneTimeEmptyTable.length) {
+                oneTimeEmptyTable.remove();
             }
         }
     }
 
     function setTr(res) {
         let tr = '<tr id="row-' + res.link.id + '">' +
-            '<td>' +
-            '<div class="input-group">' +
-            '<input type="text" id="link-' + res.link.id + '" class="form-control" value="' + res.link.alias + '">' +
-            '<div class="input-group-append">' +
-            '<button class="btn btn-outline-info btn-clipboard" type="button" data-clipboard-target="#link-' + res.link.id + '">' +
-            '<i class="fa fa-files-o" aria-hidden="true"></i>' +
-            '</button>' +
-            '</div>' +
-            '</div>' +
-            '</td>' +
-            '<td>' + res.link.created_at + '</td>';
+            '   <td>' +
+            '       <div class="input-group">' +
+            '           <input type="text" id="link-' + res.link.id + '" class="form-control" value="' + res.link.alias + '">' +
+            '           <div class="input-group-append">' +
+            '               <button class="btn btn-outline-info btn-clipboard" type="button" data-clipboard-target="#link-' + res.link.id + '">' +
+            '                   <i class="fa fa-files-o" aria-hidden="true"></i>' +
+            '               </button>' +
+            '           </div>' +
+            '       </div>' +
+            '   </td>' +
+            '   <td>' +
+                    +res.link.created_at +
+            '   </td>';
         if (res.link.single_view === 0) {
-            tr = tr + '<td>' + res.link.views + '</td>' +
-                '<td>' +
-                '<button data-id="' + res.link.id + '" class="btn btn-outline-danger btn-sm delete-link-button">' +
-                '    <i class="fa fa-trash-o" aria-hidden="true"></i>' +
-                '</button>' +
-                '</td></tr>';
+            tr = tr +
+                '   <td>'
+                        + res.link.views +
+                '   </td>' +
+                '   <td>' +
+                '   <button data-id="' + res.link.id + '" class="btn btn-outline-danger btn-sm delete-link-button">' +
+                '       <i class="fa fa-trash-o" aria-hidden="true"></i>' +
+                '   </button>' +
+                '   </td>' +
+                '</tr>';
+
             $('.general-links-row').prepend(tr);
         } else {
+            //set status
             let columnStatus = res.link.views === 0
                 ? '<span class="text-success">Active</span>'
                 : '<span class="text-danger">Not active</span>';
-            tr = tr + '<td>' + columnStatus + '</td>' +
-                '<td>' +
-                '<button data-id="' + res.link.id + '" class="btn btn-outline-danger btn-sm delete-link-button">' +
-                '    <i class="fa fa-trash-o" aria-hidden="true"></i>' +
-                '</button>' +
-                '</td></tr>';
+
+            tr = tr +
+                '   <td>'
+                        + columnStatus +
+                '   </td>' +
+                '   <td>' +
+                '       <button data-id="' + res.link.id + '" class="btn btn-outline-danger btn-sm delete-link-button">' +
+                '           <i class="fa fa-trash-o" aria-hidden="true"></i>' +
+                '       </button>' +
+                '   </td>' +
+                '</tr>';
+
             $('.one-time-links-row').prepend(tr);
         }
     }
+
+    //disable submit
+    e.preventDefault();
+
+    //hide alerts
+    window.setTimeout(function () {
+        $('.alert-link').fadeOut(200);
+    }, 6000);
 });
 
 //Ajax delete link
 $(document).on('click', '.delete-link-button', function () {
     let button = $(this);
     let id = button.attr('data-id');
+
     $.ajax({
         url: '/links/' + id,
         type: 'DELETE',
@@ -122,12 +142,15 @@ $(document).on('click', '.delete-link-button', function () {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+
         success: function (res) {
+            //remove table row
             $('#row-' + id).remove();
             //show success
             $('.alert-link-success').show(200);
             $('.alert-link-success').text(res.success);
         },
+
         error: function () {
             alert('Error deleting link');
         }
