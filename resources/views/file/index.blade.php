@@ -11,8 +11,10 @@
             <h5>@lang('file-index.text_total',['count'=>$files->total()])</h5>
         </div>
         <div class="col-md-6">
-            <a href="{{ route('files.create') }}"
-               class="btn btn-outline-primary btn-sm float-right mb-1">@lang('file-index.button_add_file')</a>
+            <a href="{{ route('files.create') }}" class="btn btn-outline-primary btn-sm float-right mb-1">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                @lang('file-index.button_add_file')
+            </a>
         </div>
     </div>
 
@@ -39,6 +41,7 @@
                     </div>
                     <a href="{{route('files.show', $file->id)}}"
                        class="btn btn-outline-primary btn-sm float-right">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
                         View file
                     </a>
                 </td>

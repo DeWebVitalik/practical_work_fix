@@ -25,16 +25,8 @@
         </div>
         <div class="card-footer">
             <div class="btn-toolbar justify-content-between">
-                <div class="btn-group" role="group" aria-label="First group">
-                    <div class="mr-3">
-                        <a href="#" class="btn  btn-outline-primary btn-sm">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            @lang('file.show.show_file')
-                        </a>
-                    </div>
-                    <div>
-                        @include('components/delete-file',compact('file'))
-                    </div>
+                <div>
+                    @include('components/delete-file',compact('file'))
                 </div>
                 <div class="float-right">
                     @include('link.link_add_form')
@@ -67,16 +59,18 @@
                         <thead>
                         <tr>
                             <th scope="col">@lang('file-show.table_column_link')</th>
-                            <th scope="col">@lang('file-show.table_column_crated')</th>
+                            <th scope="col">@lang('file-show.table_column_created')</th>
                             <th scope="col">@lang('file-show.table_column_views')</th>
                         </tr>
                         </thead>
                         <tbody class="general-links-row">
                         @forelse($generalLinks as $key=>$link)
                             <tr>
-                                <td>{{  $link->alias }}</td>
+                                <td>
+                                    @include('components.file-link',compact('link'))
+                                </td>
                                 <td>{{  $link->created_at }}</td>
-                                <td>{{  $link->view ? $link->view : 0 }}</td>
+                                <td>{{  $link->views }}</td>
                             </tr>
                         @empty
                             <tr class="general-empty-table">
@@ -103,11 +97,13 @@
                         <tbody class="one-time-links-row">
                         @forelse($oneTimeLinks as $key=>$link)
                             <tr>
-                                <td>{{  $link->alias }}</td>
+                                <td>
+                                    @include('components.file-link',compact('link'))
+                                </td>
                                 <td>{{  $link->created_at }}</td>
                                 <td>{!! $link->view
-                                ? '<span class="text-danger">'.__("file-show.active").'</span>'
-                                : '<span class="text-success">'.__("file-show.not_active").'</span>' !!}</td>
+                                ? '<span class="text-success">'.__("file-show.active").'</span>'
+                                : '<span class="text-danger">'.__("file-show.not_active").'</span>' !!}</td>
                             </tr>
                         @empty
                             <tr class="one-time-empty-table">

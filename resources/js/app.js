@@ -9,12 +9,15 @@ import $ from 'jquery';
 
 window.$ = window.jQuery = $;
 window.datepicker = require('bootstrap-datepicker');
-
+window.Clipboard = require('clipboard');
 //init datepicker for add file form
 $('#date').datepicker({
     autoclose: true,
     format: 'dd-mm-yyyy'
 });
+
+//init clipboard
+new Clipboard('.btn-clipboard');
 
 //Ajax add links
 $('#add-link-form').submit(function (e) {
