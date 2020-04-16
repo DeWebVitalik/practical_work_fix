@@ -16,6 +16,7 @@
             <th scope="col">@lang('link-index.table_column_views')</th>
             <th scope="col">@lang('link-index.table_column_status')</th>
             <th scope="col">@lang('link-index.table_column_created')</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,9 @@
                 <td>{{  $link->views }}</td>
                 <td>{{ $link->single_view==0 ? __('link-index.no') : __('link-index.yes') }}</td>
                 <td>{{  $link->created_at }}</td>
+                <td>
+                    @include('components.delete-link',compact('link'))
+                </td>
             </tr>
         @empty
             <tr>

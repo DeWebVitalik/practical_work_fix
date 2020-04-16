@@ -6,5 +6,7 @@ return [
     'delete_success' => 'File successfully deleted',
     'delete_error' => 'Error deleting file',
 
-    'link_generate_success'=>'Link generated successfully! You link: :link'
+    'link_generate_success'=>'Link generated successfully! You link: :link',
+
+    'link_delete_success'=>'Link successfully deleted'
 ];

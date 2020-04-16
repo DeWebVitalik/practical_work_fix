@@ -8,7 +8,7 @@ return [
     'general_links'=>'General links',
     'one_time_view_links'=>'One-time view links',
 
-    'table_column_link'=>'Link',
+    'table_column_link'=>'Links to file',
     'table_column_created'=>'Date created',
     'table_column_views'=>'Views',
     'table_column_status'=>'Status',

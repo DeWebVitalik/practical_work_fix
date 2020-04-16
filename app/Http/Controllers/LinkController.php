@@ -43,7 +43,7 @@ class LinkController extends Controller
         return response()->json([
             'success' => __('alert-message.link_generate_success', ['link' => $link->alias]),
             'link' => [
-                'id'=>$link->id,
+                'id' => $link->id,
                 'alias' => $link->alias,
                 'created_at' => $link->created_at,
                 'views' => 0,
@@ -61,6 +61,8 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        //
+        $link->delete();
+
+        return redirect()->route('links.index')->with('success', __('alert-message.link_delete_success'));
     }
 }
