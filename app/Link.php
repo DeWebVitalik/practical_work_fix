@@ -37,6 +37,17 @@ class Link extends Model
     }
 
     /**
+     * Replacing the alias value on URL
+     *
+     * @param $value
+     * @return string
+     */
+    public function getAliasAttribute($value)
+    {
+        return route('viewFile', $value);
+    }
+
+    /**
      * Get the file
      */
     public function file()
