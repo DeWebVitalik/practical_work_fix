@@ -92,23 +92,23 @@
                 <div class="col-md-3">
                     @widget('Menu',
                     [
-                    [
-                    'name'=>__('menu.dashboard'),
-                    'link'=>route('home'),
-                    'icon'=>'tachometer'
-                    ],
+                        [
+                            'name'=>__('menu.dashboard'),
+                            'link'=>route('home'),
+                            'icon'=>'tachometer'
+                        ],
 
-                    [
-                    'name'=>__('menu.files'),
-                    'link'=>route('files.index'),
-                    'icon'=>'files-o'
-                    ],
+                        [
+                            'name'=>__('menu.files'),
+                            'link'=>route('files.index'),
+                            'icon'=>'files-o'
+                        ],
 
-                    [
-                    'name'=>__('menu.links'),
-                    'link'=>'#',
-                    'icon'=>'link'
-                    ],
+                        [
+                            'name'=>__('menu.links'),
+                            'link'=>route('links.index'),
+                            'icon'=>'link'
+                        ],
                     ])
                 </div>
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LinkRequest;
 use App\Link;
 use App\Services\LinkService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LinkController extends Controller
 {
@@ -23,7 +23,12 @@ class LinkController extends Controller
      */
     public function index()
     {
-        //
+        return view('link/index', [
+            'links' => Link::orderBy('created_at', 'DESC')
+                ->where('user_id', Auth::id())
+                ->with('file')
+                ->paginate(10)
+        ]);
     }
 
 

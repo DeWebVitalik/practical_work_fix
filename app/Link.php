@@ -36,4 +36,12 @@ class Link extends Model
         return Carbon::parse($value)->format('d-m-y H:i');
     }
 
+    /**
+     * Get the file
+     */
+    public function file()
+    {
+        return $this->belongsTo('App\File');
+    }
+
 }
