@@ -43,6 +43,7 @@ class LinkController extends Controller
         return response()->json([
             'success' => __('alert-message.link_generate_success', ['link' => $link->alias]),
             'link' => [
+                'id'=>$link->id,
                 'alias' => $link->alias,
                 'created_at' => $link->created_at,
                 'views' => 0,

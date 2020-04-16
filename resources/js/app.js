@@ -76,10 +76,20 @@ $('#add-link-form').submit(function (e) {
     }
 
     function setTr(res) {
-        let tr = "<tr><td>" + res.link.alias + "</td>" +
-            "<td>" + res.link.created_at + "</td>";
+        let tr = '<tr>' +
+            '<td>' +
+            '<div class="input-group">' +
+            '<input type="text" id="link-' + res.link.id + '" class="form-control" value="' + res.link.alias + '">' +
+            '<div class="input-group-append">' +
+            '<button class="btn btn-outline-info btn-clipboard" type="button" data-clipboard-target="#link-' + res.link.id + '">' +
+            '<i class="fa fa-files-o" aria-hidden="true"></i>' +
+            '</button>' +
+            '</div>' +
+            '</div>' +
+            '</td>' +
+            '<td>' + res.link.created_at + '</td>';
         if (res.link.single_view === 0) {
-            tr = tr + "<td>" + res.link.views + "</td></tr>";
+            tr = tr + '<td>' + res.link.views + '</td></tr>';
             $('.general-links-row').prepend(tr);
         } else {
             let columnStatus = res.link.views === 0
