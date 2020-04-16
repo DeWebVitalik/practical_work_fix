@@ -34,8 +34,10 @@ class FileService
         if (!Storage::delete($this->getUserPersonalPath() . '/' . $file->file_name)) {
             return false;
         }
-        $file->delete = File::DELETED;
-        return $file->save();
+
+        event('deleteFile', $file);
+
+        return true;
     }
 
     protected function dateRemoveInTimestamp(string $date = null)

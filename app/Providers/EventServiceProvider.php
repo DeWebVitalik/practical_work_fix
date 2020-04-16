@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Link;
+use App\File;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,8 +32,14 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Event::listen('linkViewed', function ($link) {
+        Event::listen('linkViewed', function (Link $link) {
             $link->increment('views');
+        });
+
+        Event::listen('deleteFile', function (File $file) {
+            $file->delete = File::DELETED;
+            $file->links()->delete();
+            $file->save();
         });
     }
 }
