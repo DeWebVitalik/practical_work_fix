@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FileRequest;
 use App\Services\FileService;
 use App\File;
-use Illuminate\Http\Request;
+use App\Link;
 use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
@@ -67,7 +67,11 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        return view('file.show', compact('file'));
+        return view('file.show', [
+            'file' => $file,
+            'generalLinks' => $file->links()->where('single_view', Link::NOT_SINGLE_VIEW)->get(),
+            'oneTimeLinks' => $file->links()->where('single_view', Link::SINGLE_VIEW)->get()
+        ]);
     }
 
 

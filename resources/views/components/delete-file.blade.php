@@ -3,6 +3,7 @@
     <input type="hidden" name="_method" value="DELETE">
     {{ csrf_field() }}
     <button type="submit" class="btn btn-outline-danger btn-sm">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
         @lang('file-delete.button')
     </button>
 </form>

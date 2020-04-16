@@ -6,33 +6,84 @@
 
 require('./bootstrap');
 import $ from 'jquery';
+
 window.$ = window.jQuery = $;
-window.datepicker=require('bootstrap-datepicker');
+window.datepicker = require('bootstrap-datepicker');
+
+//init datepicker for add file form
 $('#date').datepicker({
     autoclose: true,
     format: 'dd-mm-yyyy'
 });
-//window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+//Ajax add links
+$('#add-link-form').submit(function (e) {
+    let $form = $(this);
+    $.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $form.serialize(),
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (res) {
+            //reset form
+            $form.trigger('reset');
+            //hide error alerts
+            jQuery('.alert-link-error').hide(200);
+            //show success
+            jQuery('.alert-link-success').show(200);
+            jQuery('.alert-link-success').text(res.success);
+            //remove empty tr if exist
+            clearTable(res);
+            //set tr form res
+            setTr(res);
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+        },
+        error: function (res) {
+            //clear error text
+            jQuery('.alert-link-error').text('');
+            //hide success alert
+            jQuery('.alert-link-error').hide(200);
+            //show errors
+            jQuery.each(res.responseJSON, function (key, value) {
+                jQuery('.alert-danger').show(200);
+                jQuery('.alert-danger').append('<p>' + value + '</p>');
+            });
+        }
+    });
+    //disable submit
+    e.preventDefault();
+    //hide alerts
+    window.setTimeout(function () {
+        $('.alert-link').fadeOut(200);
+    }, 6000);
 
-//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+    function clearTable(res) {
+        if (res.link.single_view === 0) {
+            if ($('.general-empty-table').length) {
+                $('.general-empty-table').remove();
+            }
+        } else {
+            if ($('.one-time-empty-table').length) {
+                $('.one-time-empty-table').remove();
+            }
+        }
+    }
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-// const app = new Vue({
-//     el: '#app',
-// });
+    function setTr(res) {
+        let tr = "<tr><td>" + res.link.alias + "</td>" +
+            "<td>" + res.link.created_at + "</td>";
+        if (res.link.single_view === 0) {
+            tr = tr + "<td>" + res.link.views + "</td></tr>";
+            $('.general-links-row').prepend(tr);
+        } else {
+            let columnStatus = res.link.views === 0
+                ? '<span class="text-success">Active</span>'
+                : '<span class="text-danger">Not active</span>';
+            tr = tr + "<td>" + columnStatus + "</td></tr>";
+            $('.one-time-links-row').prepend(tr);
+        }
+    }
+});

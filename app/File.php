@@ -45,4 +45,12 @@ class File extends Model
     {
         return Carbon::parse($value)->format('d-m-y');
     }
+
+    /**
+     * Get the links.
+     */
+    public function links()
+    {
+        return $this->hasMany('App\Link');
+    }
 }

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Link extends Model
 {
+    public const SINGLE_VIEW = 1;
+    public const NOT_SINGLE_VIEW = 0;
     /**
      * The storage format of the model's date columns.
      *
@@ -29,7 +31,7 @@ class Link extends Model
      * @param $value
      * @return string
      */
-    public function getCreatedAtAttribute($value)
+    public function getCreatedAtAttribute(int $value)
     {
         return Carbon::parse($value)->format('d-m-y H:i');
     }
