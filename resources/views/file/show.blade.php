@@ -101,7 +101,7 @@
                                     @include('components.file-link',compact('link'))
                                 </td>
                                 <td>{{  $link->created_at }}</td>
-                                <td>{!! $link->view
+                                <td>{!! $link->views==0
                                 ? '<span class="text-success">'.__("file-show.active").'</span>'
                                 : '<span class="text-danger">'.__("file-show.not_active").'</span>' !!}</td>
                             </tr>

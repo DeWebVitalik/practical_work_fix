@@ -69,8 +69,16 @@ class FileController extends Controller
     {
         return view('file.show', [
             'file' => $file,
-            'generalLinks' => $file->links()->where('single_view', Link::NOT_SINGLE_VIEW)->get(),
-            'oneTimeLinks' => $file->links()->where('single_view', Link::SINGLE_VIEW)->get()
+            'generalLinks' => $file
+                ->links()
+                ->where('single_view', Link::NOT_SINGLE_VIEW)
+                ->orderBy('created_at', 'DESC')
+                ->get(),
+            'oneTimeLinks' => $file
+                ->links()
+                ->orderBy('created_at', 'DESC')
+                ->where('single_view', Link::SINGLE_VIEW)
+                ->get()
         ]);
     }
 
