@@ -85,7 +85,7 @@ $('#add-link-form').submit(function (e) {
             '       </div>' +
             '   </td>' +
             '   <td>' +
-                    +res.link.created_at +
+                    res.link.created_at +
             '   </td>';
         if (res.link.single_view === 0) {
             tr = tr +
