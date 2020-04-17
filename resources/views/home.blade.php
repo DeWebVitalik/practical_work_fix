@@ -50,7 +50,8 @@
                     <div class="info-box-content">
                         <span class="info-box-text text-white"><b>@lang('home.one_time_link_used')</b></span>
                         <div class="progress">
-                            <div class="progress-bar" style="width: {{ $totalUsedOneTimeLinks*100/$totalOneTimeLinks }}%"></div>
+                            <div class="progress-bar"
+                                 style="width:@if($totalUsedOneTimeLinks>0 && $totalOneTimeLinks>0) {{ $totalUsedOneTimeLinks*100/$totalOneTimeLinks }} @else 0 @endif %"></div>
                         </div>
                         <span class="progress-description">@lang('home.using_one_time_link_message',[
                             'used'=>$totalUsedOneTimeLinks,
