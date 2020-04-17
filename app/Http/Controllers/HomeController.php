@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\StatisticsService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected StatisticsService $service;
+
+    public function __construct(StatisticsService $service)
     {
-        $this->middleware('auth');
+        $this->service = $service;
     }
 
     /**
@@ -23,6 +21,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', $this->service->getStatistic());
     }
 }

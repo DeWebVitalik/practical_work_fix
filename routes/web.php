@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::resource('files', 'FileController', ['only' => [
     'index', 'create', 'show', 'store', 'destroy'
