@@ -13,5 +13,7 @@ return [
     'file_already_deleted' => 'This file has already been deleted',
 
     'generation_link_success' => 'Link generated successfully',
-    'error_generation_link' => 'Link generated successfully error'
+    'error_generation_link' => 'Link generated successfully error',
+
+    'file_not_found'=>'File not found'
 ];

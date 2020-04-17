@@ -42,6 +42,10 @@ class FIleController extends BaseController
      */
     public function show(File $file)
     {
+        if ($this->service->isFileDelete($file)) {
+            return $this->sendError(__('alert-message.file_not_found'));
+        }
+
         return response()->download(UserFilePath::getFilePath($file->file_name, $file->user_id, true), $file->file_name);
     }
 
