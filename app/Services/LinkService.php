@@ -7,9 +7,8 @@ namespace App\Services;
 use App\Http\Requests\LinkRequest;
 use App\Link;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Helpers\UserFilePath;
+
 
 class LinkService
 {
@@ -23,15 +22,6 @@ class LinkService
         ]);
     }
 
-//    public function getFilePath(Link $link)
-//    {
-//
-//        $filePath =UserFilePath::getFilePath($link->file->file_name,$link->user_id);
-//        if (!Storage::exists($filePath)) {
-//            return false;
-//        }
-//        return $filePath;
-//    }
 
     public function checkAccess(Link $link)
     {
