@@ -9,6 +9,7 @@ class Link extends Model
 {
     public const SINGLE_VIEW = 1;
     public const NOT_SINGLE_VIEW = 0;
+
     /**
      * The storage format of the model's date columns.
      *
@@ -53,6 +54,14 @@ class Link extends Model
     public function file()
     {
         return $this->belongsTo('App\File');
+    }
+
+    public function links()
+    {
+        return $this->orderBy('created_at', 'DESC')
+            ->where('user_id', auth()->id())
+            ->with('file')
+            ->paginate(10);
     }
 
 }

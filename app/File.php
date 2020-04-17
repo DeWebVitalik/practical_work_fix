@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
+
 class File extends Model
 {
     public const DELETED = 1;
     public const NOT_DELETED = 0;
+
     /**
      * The storage format of the model's date columns.
      *
@@ -53,4 +55,32 @@ class File extends Model
     {
         return $this->hasMany('App\Link');
     }
+
+
+    public function oneTimeLinks()
+    {
+        return $this->links()
+            ->where('single_view', Link::SINGLE_VIEW)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+    }
+
+    public function generalLinks()
+    {
+        return $this->links()
+            ->where('single_view', Link::NOT_SINGLE_VIEW)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+    }
+
+    public function files()
+    {
+        return $this->orderBy('created_at', 'DESC')
+            ->where([
+                ['delete', File::NOT_DELETED],
+                ['user_id', auth()->id()]
+            ])
+            ->paginate(10);
+    }
+
 }

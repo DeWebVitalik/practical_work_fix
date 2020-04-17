@@ -28,10 +28,12 @@ class LinkController extends BaseController
     {
         $link = $this->service->save($request);
         if ($link) {
+
             return $this->sendResponse([
                 'url' => $link->alias,
                 'single_view' => $link->single_view == 1 ? true : false
             ], __('alert-message.generation_link_success'));
+
         } else {
             return $this->sendError(__('alert-message.error_generation_link'));
         }

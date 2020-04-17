@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\UserFilePath;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Services\FileService;
@@ -66,12 +67,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        Storage::makeDirectory(FileService::PATH_USER_FILES . $user->id);
-        return $user;
     }
 }

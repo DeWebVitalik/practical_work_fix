@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\ApiLoginRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -29,6 +27,7 @@ class LoginController extends Controller
 
     /**
      * Authorization and generation access token
+     *
      * @param ApiLoginRequest $request
      * @return string
      */

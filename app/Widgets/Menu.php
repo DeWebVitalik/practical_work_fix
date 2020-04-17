@@ -27,7 +27,7 @@ class Menu extends AbstractWidget
         ]);
     }
 
-    protected function setActiveElement()
+    protected function setActiveElement():void
     {
         foreach ($this->config as $item) {
             $active = false;

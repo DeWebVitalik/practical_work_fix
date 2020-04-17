@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\StatisticsService;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -17,7 +16,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {

@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Helpers\UserFilePath;
 use App\Link;
 use App\Services\LinkService;
 use Illuminate\Support\Facades\Storage;
@@ -23,13 +24,15 @@ class ViewController extends Controller
      *
      * @param string $alias
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function index(string $alias)
     {
         $link = Link::where('alias', $alias)->firstOrFail();
-        $filePath = $this->service->getFilePath($link);
 
-        if (!$filePath) {
+        $filePath = UserFilePath::getFilePath($link->file->file_name, $link->user_id);
+
+        if (!Storage::exists($filePath)) {
             abort(404);
         }
 
@@ -46,8 +49,6 @@ class ViewController extends Controller
         $response->header("Content-Type", $type);
 
         return $response;
-
     }
-
 
 }

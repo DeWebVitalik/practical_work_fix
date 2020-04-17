@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Helpers\UserFilePath;
 use App\Link;
 use App\File;
+use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -40,6 +42,10 @@ class EventServiceProvider extends ServiceProvider
             $file->delete = File::DELETED;
             $file->links()->delete();
             $file->save();
+        });
+
+        Event::listen('createUser', function (User $user) {
+            UserFilePath::createUserDirectory($user->id);
         });
     }
 }

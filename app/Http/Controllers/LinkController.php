@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LinkRequest;
 use App\Link;
 use App\Services\LinkService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LinkController extends Controller
@@ -20,18 +19,15 @@ class LinkController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Link $link
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Link $link)
     {
         return view('link/index', [
-            'links' => Link::orderBy('created_at', 'DESC')
-                ->where('user_id', Auth::id())
-                ->with('file')
-                ->paginate(10)
+            'links' => $link->links()
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -54,7 +50,6 @@ class LinkController extends Controller
         ]);
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -67,11 +62,14 @@ class LinkController extends Controller
     {
         $link->delete();
         if ($request->ajax()) {
+
             return response()->json([
                 'success' => __('alert-message.link_delete_success')
             ]);
+
         } else {
-            return redirect()->route('links.index')->with('success', __('alert-message.link_delete_success'));
+            return redirect()->route('links.index')
+                ->with('success', __('alert-message.link_delete_success'));
         }
     }
 }

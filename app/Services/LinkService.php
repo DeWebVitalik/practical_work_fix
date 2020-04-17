@@ -15,24 +15,23 @@ class LinkService
 {
     public function save(LinkRequest $request)
     {
-        $link = Link::create([
+        return Link::create([
             'user_id' => Auth::id(),
             'file_id' => $request->file_id,
             'single_view' => empty($request->single_view) ? 0 : 1,
             'alias' => Str::random(32),
         ]);
-        return $link;
     }
 
-    public function getFilePath(Link $link)
-    {
-
-        $filePath =UserFilePath::getFilePath($link->file->file_name,$link->user_id);
-        if (!Storage::exists($filePath)) {
-            return false;
-        }
-        return $filePath;
-    }
+//    public function getFilePath(Link $link)
+//    {
+//
+//        $filePath =UserFilePath::getFilePath($link->file->file_name,$link->user_id);
+//        if (!Storage::exists($filePath)) {
+//            return false;
+//        }
+//        return $filePath;
+//    }
 
     public function checkAccess(Link $link)
     {

@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FileRequest;
 use App\Services\FileService;
 use App\File;
-use App\Link;
-use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
 {
@@ -20,17 +18,13 @@ class FileController extends Controller
     /**
      * Display a listing of the file.
      *
+     * @param File $file
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(File $file)
     {
-        return view('file/index', [
-            'files' => File::orderBy('created_at', 'DESC')
-                ->where([
-                    ['delete', File::NOT_DELETED],
-                    ['user_id', Auth::id()]
-                ])
-                ->paginate(10)
+        return view('file.index', [
+            'files' => $file->files()
         ]);
     }
 
@@ -41,7 +35,7 @@ class FileController extends Controller
      */
     public function create()
     {
-        return view('file/create');
+        return view('file.create');
     }
 
     /**
@@ -52,10 +46,12 @@ class FileController extends Controller
      */
     public function store(FileRequest $request)
     {
-        if ($file=$this->service->save($request)) {
-            return redirect()->route('files.index')->with('success', __('alert-message.upload_success'));
+        if ($file = $this->service->save($request)) {
+            return redirect()->route('files.index')
+                ->with('success', __('alert-message.upload_success'));
         } else {
-            return redirect()->route('files.create')->with('error', __('alert-message.upload_error'));
+            return redirect()->route('files.create')
+                ->with('error', __('alert-message.upload_error'));
         }
     }
 
@@ -67,21 +63,16 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
+        if ($this->service->isFileDelete($file)) {
+            abort(404);
+        }
+
         return view('file.show', [
             'file' => $file,
-            'generalLinks' => $file
-                ->links()
-                ->where('single_view', Link::NOT_SINGLE_VIEW)
-                ->orderBy('created_at', 'DESC')
-                ->get(),
-            'oneTimeLinks' => $file
-                ->links()
-                ->orderBy('created_at', 'DESC')
-                ->where('single_view', Link::SINGLE_VIEW)
-                ->get()
+            'generalLinks' => $file->generalLinks(),
+            'oneTimeLinks' => $file->oneTimeLinks()
         ]);
     }
-
 
     /**
      * Remove the specified file from storage.
@@ -92,10 +83,16 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
+        if ($this->service->isFileDelete($file)) {
+            abort(404);
+        }
+
         if ($this->service->delete($file)) {
-            return redirect()->route('files.index')->with('success', __('alert-message.delete_success'));
+            return redirect()->route('files.index')
+                ->with('success', __('alert-message.delete_success'));
         } else {
-            return redirect()->route('files.index')->with('error', __('alert-message.delete_error'));
+            return redirect()->route('files.index')
+                ->with('error', __('alert-message.delete_error'));
         }
     }
 

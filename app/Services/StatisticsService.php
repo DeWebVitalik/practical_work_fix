@@ -22,6 +22,11 @@ class StatisticsService
         ];
     }
 
+    protected function getUserId(): int
+    {
+        return Auth::id();
+    }
+
     protected function getTotalViews(): int
     {
         return Link::where('user_id', $this->getUserId())->sum('views');
@@ -56,12 +61,8 @@ class StatisticsService
         return Link::where([
             ['user_id', '=', $this->getUserId()],
             ['single_view', '=', Link::SINGLE_VIEW],
-            ['views', '=',Link::SINGLE_VIEW]
+            ['views', '=', Link::SINGLE_VIEW]
         ])->count();
     }
 
-    protected function getUserId(): int
-    {
-        return Auth::id();
-    }
 }
