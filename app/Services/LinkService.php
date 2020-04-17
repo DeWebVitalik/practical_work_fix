@@ -27,7 +27,7 @@ class LinkService
     public function getFilePath(Link $link)
     {
 
-        $filePath =UserFilePath::getFilePath($link->file->file_name);
+        $filePath =UserFilePath::getFilePath($link->file->file_name,$link->user_id);
         if (!Storage::exists($filePath)) {
             return false;
         }

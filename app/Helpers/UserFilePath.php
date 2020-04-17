@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserFilePath
 {
@@ -14,11 +15,17 @@ class UserFilePath
             throw new \Exception('Authorized user ID not found');
         }
 
-        return self::PATH_USER_FILES . '/' . Auth::id();
+        return self::PATH_USER_FILES . Auth::id();
     }
 
-    public static function getFilePath(string $fileName)
+    public static function getFilePath(string $fileName, int $userId = null)
     {
-        return self::getUserPersonalPath() . '/' . $fileName;
+        if ($userId) {
+            $personalPath = self::PATH_USER_FILES . $userId;
+        } else {
+            $personalPath = self::getUserPersonalPath();
+        }
+
+        return $personalPath . '/' . $fileName;
     }
 }
