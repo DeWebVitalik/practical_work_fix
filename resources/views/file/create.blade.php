@@ -29,7 +29,7 @@
                             <input type="text" class="form-control @error('date') is-invalid @enderror"
                                    name="date_remove" id="date"
                                    placeholder="Enter date">
-                            @error('date')
+                            @error('date_remove')
                             <span class="invalid-feedback">
                                 <strong>{{ $message }}</strong>
                             </span>

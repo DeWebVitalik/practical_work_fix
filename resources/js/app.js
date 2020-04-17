@@ -12,7 +12,11 @@ window.datepicker = require('bootstrap-datepicker');
 window.Clipboard = require('clipboard');
 
 //init datepicker for add file form
+let today = new Date;
 $('#date').datepicker({
+    startDate: (new Date()).toString('dd.MM.yyyy'),
+    todayHighlight: true,
+    toggleActive: true,
     autoclose: true,
     format: 'dd-mm-yyyy'
 });
@@ -85,12 +89,12 @@ $('#add-link-form').submit(function (e) {
             '       </div>' +
             '   </td>' +
             '   <td>' +
-                    res.link.created_at +
+            res.link.created_at +
             '   </td>';
         if (res.link.single_view === 0) {
             tr = tr +
                 '   <td>'
-                        + res.link.views +
+                + res.link.views +
                 '   </td>' +
                 '   <td>' +
                 '   <button data-id="' + res.link.id + '" class="btn btn-outline-danger btn-sm delete-link-button">' +
@@ -108,7 +112,7 @@ $('#add-link-form').submit(function (e) {
 
             tr = tr +
                 '   <td>'
-                        + columnStatus +
+                + columnStatus +
                 '   </td>' +
                 '   <td>' +
                 '       <button data-id="' + res.link.id + '" class="btn btn-outline-danger btn-sm delete-link-button">' +
