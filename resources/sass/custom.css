@@ -28,15 +28,13 @@
     margin-left: 90px;
 }
 
-.info-box-text {
-    text-transform: uppercase;
-}
 
 .info-box-text {
     display: block;
-    font-size: 14px;
+    font-size: 18px;
     white-space: nowrap;
     overflow: hidden;
+    font-weight: normal;
     text-overflow: ellipsis;
 }
 
