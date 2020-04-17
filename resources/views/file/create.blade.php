@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    @lang('file-create.title')
+    @lang('file.create.title')
 @endsection
 @section('breadcrumbs')
     {{ Breadcrumbs::render('file-add') }}

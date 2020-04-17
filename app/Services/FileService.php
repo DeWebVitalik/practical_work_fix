@@ -26,7 +26,7 @@ class FileService
             'user_id' => Auth::id(),
             'file_name' => $fileName,
             'comment' => $request->comment,
-            'date_remove' => $this->dateRemoveInTimestamp($request->date_remove)
+            'date_remove' => $request->date_remove ? Carbon::parse($request->date_remove)->timestamp : null
         ]);
 
         return $userFile;
@@ -63,21 +63,6 @@ class FileService
         }
 
         return true;
-    }
-
-    /**
-     * Convert date remove in timestamp
-     *
-     * @param string|null $date
-     * @return int|null
-     */
-    protected function dateRemoveInTimestamp(string $date = null): int
-    {
-        if (!$date) {
-            return null;
-        }
-
-        return (int)Carbon::parse($date)->timestamp;
     }
 
     /**
