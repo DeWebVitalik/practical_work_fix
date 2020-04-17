@@ -34,7 +34,7 @@ class Link extends Model
      */
     public function getCreatedAtAttribute(int $value)
     {
-        return Carbon::parse($value)->format('d-m-y H:i');
+        return Carbon::parse($value)->format('d M Y H:i');
     }
 
     /**

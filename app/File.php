@@ -35,7 +35,7 @@ class File extends Model
      */
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-y H:i');
+        return Carbon::parse($value)->format('d M Y H:i');
     }
 
     /**
@@ -45,7 +45,7 @@ class File extends Model
      */
     public function getDateRemoveAttribute($value)
     {
-        return $value ? Carbon::parse($value)->format('d-m-y') : __('file.index.not_set');
+        return $value ? Carbon::parse($value)->format('d M Y H:i') : __('file.index.not_set');
     }
 
     /**
