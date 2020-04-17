@@ -19,4 +19,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('files', 'API\FileController', ['only' => [
         'show', 'store', 'destroy'
     ]]);
+
+    Route::post('link/generation', 'API\LinkController@generation');
+
 });
