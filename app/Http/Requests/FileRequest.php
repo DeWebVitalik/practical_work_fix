@@ -17,7 +17,7 @@ class FileRequest extends FormRequest
         return [
             'comment' => ['required', 'max:255'],
             'date_remove' => ['nullable', 'date_format:d-m-Y', 'date'],
-            'file' => ['required', 'max:5000', new DuplicateFile($this)],
+            'file' => ['required', 'image', 'max:5000', new DuplicateFile($this)],
         ];
     }
 }
