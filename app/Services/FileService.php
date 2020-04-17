@@ -17,16 +17,14 @@ class FileService
     {
         $fileName = $this->uploadFile($request);
 
-        $userFile = new File();
-
-        $userFile->fill([
+        $userFile = File::create([
             'user_id' => Auth::id(),
             'file_name' => $fileName,
             'comment' => $request->comment,
             'date_remove' => $this->dateRemoveInTimestamp($request->date_remove)
         ]);
 
-        return $userFile->save();
+        return $userFile;
     }
 
     public function delete(File $file)
@@ -36,6 +34,15 @@ class FileService
         }
 
         event('deleteFile', $file);
+
+        return true;
+    }
+
+    public function isFileDelete(File $file)
+    {
+        if ($file->delete != File::DELETED) {
+            return false;
+        }
 
         return true;
     }

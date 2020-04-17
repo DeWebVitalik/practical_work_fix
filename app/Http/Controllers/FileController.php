@@ -52,7 +52,7 @@ class FileController extends Controller
      */
     public function store(FileRequest $request)
     {
-        if ($this->service->save($request)) {
+        if ($file=$this->service->save($request)) {
             return redirect()->route('files.index')->with('success', __('alert-message.upload_success'));
         } else {
             return redirect()->route('files.create')->with('error', __('alert-message.upload_error'));

@@ -8,5 +8,7 @@ return [
 
     'link_generate_success' => 'Link generated successfully! You link: :link',
 
-    'link_delete_success' => 'Link successfully deleted'
+    'link_delete_success' => 'Link successfully deleted',
+
+    'file_already_deleted'=>'This file has already been deleted'
 ];

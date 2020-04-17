@@ -3,7 +3,6 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class UserFilePath
 {
@@ -18,7 +17,7 @@ class UserFilePath
         return self::PATH_USER_FILES . Auth::id();
     }
 
-    public static function getFilePath(string $fileName, int $userId = null)
+    public static function getFilePath(string $fileName, int $userId = null, $fullPath = false)
     {
         if ($userId) {
             $personalPath = self::PATH_USER_FILES . $userId;
@@ -26,6 +25,9 @@ class UserFilePath
             $personalPath = self::getUserPersonalPath();
         }
 
+        $personalPath = $fullPath ? storage_path('app/' . $personalPath) : $personalPath;
+
         return $personalPath . '/' . $fileName;
     }
+
 }
