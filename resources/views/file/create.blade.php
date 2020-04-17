@@ -11,19 +11,6 @@
             <form action="{{route('files.store')}}" method="post" enctype="multipart/form-data">
                 <div class="row">
                     {{csrf_field()}}
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-form-label"
-                                   for="comment">@lang('file.create.label_comment')</label>
-                            <textarea class="form-control @error('comment') is-invalid @enderror"
-                                      id="comment" name="comment"></textarea>
-                            @error('comment')
-                            <span class="invalid-feedback">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="col-form-label" for="file">@lang('file.create.label_file')</label>
@@ -43,6 +30,19 @@
                                    name="date_remove" id="date"
                                    placeholder="Enter date">
                             @error('date')
+                            <span class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-form-label"
+                                   for="comment">@lang('file.create.label_comment')</label>
+                            <textarea class="form-control @error('comment') is-invalid @enderror"
+                                      id="comment" name="comment"></textarea>
+                            @error('comment')
                             <span class="invalid-feedback">
                                 <strong>{{ $message }}</strong>
                             </span>

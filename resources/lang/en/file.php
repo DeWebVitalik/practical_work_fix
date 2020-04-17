@@ -21,6 +21,8 @@ return [
         'table_column_date_remove' => 'Date remove',
         'button_add_file' => 'Add new file',
         'text_total' => 'Total files: :count',
+        'files_not_found'=>'Files not found',
+        'view_file'=>'View file'
     ],
 
     'show' => [

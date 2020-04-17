@@ -37,12 +37,12 @@
                 <td>{{  $file->date_remove }}</td>
                 <td>
                     <div class="float-right ml-1">
-                        @include('components/delete-file',compact('file'))
+                        @include('components.delete-file',compact('file'))
                     </div>
                     <a href="{{route('files.show', $file->id)}}"
                        class="btn btn-outline-primary btn-sm float-right">
                         <i class="fa fa-eye" aria-hidden="true"></i>
-                        View file
+                        @lang('file.index.view_file')
                     </a>
                 </td>
             </tr>
@@ -50,7 +50,7 @@
             <tr>
                 <td colspan="5">
                     <h3 class="text-center">
-                        Files not found
+                        @lang('file.index.files_not_found')
                     </h3>
                 </td>
             </tr>
