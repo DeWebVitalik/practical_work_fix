@@ -89,30 +89,31 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
-                    @widget('Menu',
-                    [
+                @if (auth()->id())
+                    <div class="col-md-3">
+                        @widget('Menu',
                         [
-                            'name'=>__('menu.dashboard'),
-                            'link'=>route('home'),
-                            'icon'=>'tachometer'
-                        ],
+                            [
+                                'name'=>__('menu.dashboard'),
+                                'link'=>route('home'),
+                                'icon'=>'tachometer'
+                            ],
 
-                        [
-                            'name'=>__('menu.files'),
-                            'link'=>route('files.index'),
-                            'icon'=>'files-o'
-                        ],
+                            [
+                                'name'=>__('menu.files'),
+                                'link'=>route('files.index'),
+                                'icon'=>'files-o'
+                            ],
 
-                        [
-                            'name'=>__('menu.links'),
-                            'link'=>route('links.index'),
-                            'icon'=>'link'
-                        ],
-                    ])
-                </div>
-
-                <div class="col-md-9">
+                            [
+                                'name'=>__('menu.links'),
+                                'link'=>route('links.index'),
+                                'icon'=>'link'
+                            ],
+                        ])
+                    </div>
+                @endif
+                <div class="@if (auth()->id()) col-md-9 @else col-md-12 @endif">
                     @yield('content')
                 </div>
             </div>
