@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\File;
 use App\Http\Requests\LinkRequest;
 use App\Link;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,12 @@ class LinkService
         }
 
         return true;
+    }
+
+    public function isFileNotExist(LinkRequest $request): bool
+    {
+        $file = File::where('id', $request->file_id)->get();
+        return $file->isEmpty();
     }
 
 }

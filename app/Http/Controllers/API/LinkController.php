@@ -26,6 +26,10 @@ class LinkController extends BaseController
      */
     public function generation(LinkRequest $request)
     {
+        if ($this->service->isFileNotExist($request)) {
+            return $this->sendError(__('alert-message.file_not_found'));
+        }
+
         $link = $this->service->save($request);
         if ($link) {
 
