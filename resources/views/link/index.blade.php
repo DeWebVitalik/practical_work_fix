@@ -24,14 +24,14 @@
             <tr>
                 <th scope="row"><b>{{ $links->firstItem() + $key }}</b></th>
                 <td>
-                    @include('components.file-link',compact('link'))
+                    @include('components.fileLink',compact('link'))
                 </td>
                 <td><a href="{{ route('files.show',$link->file->id) }}">{{  $link->file->file_name }}</a></td>
                 <td>{{  $link->views }}</td>
                 <td>{{ $link->single_view==0 ? __('link.index.no') : __('link.index.yes') }}</td>
                 <td>{{  $link->created_at }}</td>
                 <td>
-                    @include('components.delete-link',compact('link'))
+                    @include('components.deleteLink',compact('link'))
                 </td>
             </tr>
         @empty

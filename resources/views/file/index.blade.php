@@ -37,7 +37,7 @@
                 <td>{{  $file->date_remove }}</td>
                 <td>
                     <div class="float-right ml-1">
-                        @include('components.delete-file',compact('file'))
+                        @include('components.deleteFile',compact('file'))
                     </div>
                     <a href="{{route('files.show', $file->id)}}"
                        class="btn btn-outline-primary btn-sm float-right">

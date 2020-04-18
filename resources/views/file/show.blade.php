@@ -26,10 +26,10 @@
         <div class="card-footer">
             <div class="btn-toolbar justify-content-between">
                 <div>
-                    @include('components/delete-file',compact('file'))
+                    @include('components/deleteFile',compact('file'))
                 </div>
                 <div class="float-right">
-                    @include('link.link_add_form')
+                    @include('link.linkAddForm')
                 </div>
             </div>
         </div>
@@ -68,12 +68,12 @@
                         @forelse($generalLinks as $key=>$link)
                             <tr id="row-{{ $link->id }}">
                                 <td>
-                                    @include('components.file-link',compact('link'))
+                                    @include('components.fileLink',compact('link'))
                                 </td>
                                 <td>{{  $link->created_at }}</td>
                                 <td>{{  $link->views }}</td>
                                 <td>
-                                    @include('components.delete-link-ajax')
+                                    @include('components.deleteLinkAjax')
                                 </td>
                             </tr>
                         @empty
@@ -103,14 +103,14 @@
                         @forelse($oneTimeLinks as $key=>$link)
                             <tr id="row-{{ $link->id }}">
                                 <td>
-                                    @include('components.file-link',compact('link'))
+                                    @include('components.fileLink',compact('link'))
                                 </td>
                                 <td>{{  $link->created_at }}</td>
                                 <td>{!! $link->views==0
                                 ? '<span class="text-success">'.__("file.show.active").'</span>'
                                 : '<span class="text-danger">'.__("file.show.not_active").'</span>' !!}</td>
                                 <td>
-                                    @include('components.delete-link-ajax')
+                                    @include('components.deleteLinkAjax')
                                 </td>
                             </tr>
                         @empty

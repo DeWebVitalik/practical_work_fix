@@ -26,7 +26,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="col-form-label" for="date">@lang('file.create.label_date_remove')</label>
-                            <input type="text" class="form-control @error('date') is-invalid @enderror"
+                            <input type="text" class="form-control @error('date_remove') is-invalid @enderror"
                                    name="date_remove" id="date"
                                    placeholder="Enter date">
                             @error('date_remove')

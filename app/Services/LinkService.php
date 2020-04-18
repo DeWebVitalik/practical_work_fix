@@ -13,7 +13,13 @@ use Illuminate\Support\Str;
 
 class LinkService
 {
-    public function save(LinkRequest $request)
+    /**
+     * Create alias for file
+     *
+     * @param LinkRequest $request
+     * @return Link
+     */
+    public function save(LinkRequest $request): Link
     {
         return Link::create([
             'user_id' => Auth::id(),
@@ -23,8 +29,13 @@ class LinkService
         ]);
     }
 
-
-    public function checkAccess(Link $link)
+    /**
+     * Checks whether an alias is one-time and has been used
+     *
+     * @param Link $link
+     * @return bool
+     */
+    public function checkAccess(Link $link): bool
     {
         if ($link->single_view == Link::SINGLE_VIEW && $link->views >= 1) {
             return false;
@@ -33,6 +44,10 @@ class LinkService
         return true;
     }
 
+    /**
+     * @param LinkRequest $request
+     * @return bool
+     */
     public function isFileNotExist(LinkRequest $request): bool
     {
         $file = File::where('id', $request->file_id)->get();

@@ -22,14 +22,12 @@ class FileService
     {
         $fileName = $this->uploadFile($request);
 
-        $userFile = File::create([
+        return File::create([
             'user_id' => Auth::id(),
             'file_name' => $fileName,
             'comment' => $request->comment,
             'date_remove' => $request->date_remove ? Carbon::parse($request->date_remove)->timestamp : null
         ]);
-
-        return $userFile;
     }
 
     /**
