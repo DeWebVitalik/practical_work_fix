@@ -2,14 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 
 class File extends Model
 {
-    public const DELETED = 1;
-    public const NOT_DELETED = 0;
+    use SoftDeletes;
 
     /**
      * The storage format of the model's date columns.
@@ -77,7 +77,6 @@ class File extends Model
     {
         return $this->orderBy('created_at', 'DESC')
             ->where([
-                ['delete', File::NOT_DELETED],
                 ['user_id', auth()->id()]
             ])
             ->paginate(10);

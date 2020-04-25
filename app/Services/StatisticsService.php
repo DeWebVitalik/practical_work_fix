@@ -36,15 +36,13 @@ class StatisticsService
     {
         return File::where([
             ['user_id', '=', $this->getUserId()],
-            ['delete', '=', File::NOT_DELETED]
         ])->count();
     }
 
     protected function getTotalDeletedFiles(): int
     {
-        return File::where([
+        return File::onlyTrashed()->where([
             ['user_id', '=', $this->getUserId()],
-            ['delete', '=', File::DELETED]
         ])->count();
     }
 

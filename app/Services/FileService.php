@@ -43,9 +43,9 @@ class FileService
             return false;
         }
 
-        event('deleteFile', $file);
+        $file->links()->delete();
 
-        return true;
+        return $file->delete();
     }
 
     /**
@@ -56,11 +56,7 @@ class FileService
      */
     public function isFileDelete(File $file): bool
     {
-        if ($file->delete != File::DELETED) {
-            return false;
-        }
-
-        return true;
+        return $file->trashed();
     }
 
     /**

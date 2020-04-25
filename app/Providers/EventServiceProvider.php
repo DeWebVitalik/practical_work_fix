@@ -38,12 +38,6 @@ class EventServiceProvider extends ServiceProvider
             $link->increment('views');
         });
 
-        Event::listen('deleteFile', function (File $file) {
-            $file->delete = File::DELETED;
-            $file->links()->delete();
-            $file->save();
-        });
-
         Event::listen('createUser', function (User $user) {
             UserFilePath::createUserDirectory($user->id);
         });

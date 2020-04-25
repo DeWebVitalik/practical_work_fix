@@ -36,7 +36,6 @@ class DuplicateFile implements Rule
         $file = File::where([
             ['file_name', '=', $this->fileName],
             ['user_id', '=', Auth::id()],
-            ['delete', '=', File::NOT_DELETED]
         ])->get();
         return $file->isEmpty() ? true : false;
     }
