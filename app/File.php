@@ -6,7 +6,34 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-
+/**
+ * App\File
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $file_name
+ * @property string $comment
+ * @property string $date_remove
+ * @property string $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Link[] $links
+ * @property-read int|null $links_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\File onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereDateRemove($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereFileName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\File withoutTrashed()
+ */
 class File extends Model
 {
     use SoftDeletes;
@@ -49,14 +76,17 @@ class File extends Model
     }
 
     /**
-     * Get the links.
+     * Get links
      */
     public function links()
     {
         return $this->hasMany('App\Link');
     }
 
-
+    /**
+     * Get one-time links
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function oneTimeLinks()
     {
         return $this->links()
@@ -65,6 +95,10 @@ class File extends Model
             ->get();
     }
 
+    /**
+     * Get general links
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function generalLinks()
     {
         return $this->links()
@@ -73,6 +107,10 @@ class File extends Model
             ->get();
     }
 
+    /**
+     * Get files
+     * @return mixed
+     */
     public function files()
     {
         return $this->orderBy('created_at', 'DESC')
