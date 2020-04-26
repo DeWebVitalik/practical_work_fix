@@ -64,10 +64,6 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        if ($this->service->isFileDelete($file)) {
-            abort(404);
-        }
-
         return view('file.show', [
             'file' => $file,
             'generalLinks' => $file->generalLinks(),

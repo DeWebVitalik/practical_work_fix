@@ -45,10 +45,6 @@ class FIleController extends BaseController
      */
     public function show(File $file)
     {
-        if ($file->trashed()) {
-            return $this->sendError(__('alert-message.file_not_found'));
-        }
-
         $filePath = UserFilePath::getFilePath($file->file_name, $file->user_id, true);
 
         if (Storage::exists($filePath)) {
@@ -68,10 +64,6 @@ class FIleController extends BaseController
      */
     public function destroy(File $file)
     {
-        if ($file->trashed()) {
-            return $this->sendError(__('alert-message.file_already_deleted'));
-        }
-
         if ($this->service->delete($file)) {
             return $this->sendResponse($file, __('alert-message.delete_success'));
         } else {

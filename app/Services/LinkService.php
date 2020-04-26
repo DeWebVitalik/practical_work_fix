@@ -4,6 +4,7 @@
 namespace App\Services;
 
 use App\Link;
+use App\File;
 use App\TDO\LinkTdo;
 use Illuminate\Support\Str;
 use App\User;

@@ -52,17 +52,6 @@ class FileService
     }
 
     /**
-     * Checks in the database the file has a deleted status
-     *
-     * @param File $file
-     * @return bool
-     */
-    public function isFileDelete(File $file): bool
-    {
-        return $file->trashed();
-    }
-
-    /**
      * Upload file
      *
      * @param FileTdo $request
