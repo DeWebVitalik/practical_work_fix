@@ -28,7 +28,7 @@ class FIleController extends BaseController
      */
     public function store(FileRequest $request)
     {
-        if ($file = $this->service->save($request)) {
+        if ($file = $this->service->save($request->getDto(), auth()->user())) {
             return $this->sendResponse($file, __('alert-message.upload_success'));
         } else {
             return $this->sendResponse($file, __('alert-message.upload_error'));
@@ -45,7 +45,7 @@ class FIleController extends BaseController
      */
     public function show(File $file)
     {
-        if ($this->service->isFileDelete($file)) {
+        if ($file->trashed()) {
             return $this->sendError(__('alert-message.file_not_found'));
         }
 
@@ -55,7 +55,7 @@ class FIleController extends BaseController
             return $this->sendError(__('alert-message.file_not_found'));
         }
 
-        return response()->download(UserFilePath::getFilePath($file->file_name, $file->user_id, true), $file->file_name);
+        return response()->download($filePath, $file->file_name);
     }
 
 
@@ -68,7 +68,7 @@ class FIleController extends BaseController
      */
     public function destroy(File $file)
     {
-        if ($this->service->isFileDelete($file)) {
+        if ($file->trashed()) {
             return $this->sendError(__('alert-message.file_already_deleted'));
         }
 

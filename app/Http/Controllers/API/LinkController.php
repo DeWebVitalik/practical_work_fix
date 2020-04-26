@@ -3,8 +3,8 @@
 
 namespace App\Http\Controllers\API;
 
-
 use App\Http\Requests\LinkRequest;
+use App\Link;
 use App\Services\LinkService;
 
 
@@ -26,11 +26,12 @@ class LinkController extends BaseController
      */
     public function generation(LinkRequest $request)
     {
-        if ($this->service->isFileNotExist($request)) {
+        if ($this->service->isFileNotExist($request->getDto())) {
             return $this->sendError(__('alert-message.file_not_found'));
         }
 
-        $link = $this->service->save($request);
+        $link = $this->service->save($request->getDto(), auth()->user());
+
         if ($link) {
 
             return $this->sendResponse([

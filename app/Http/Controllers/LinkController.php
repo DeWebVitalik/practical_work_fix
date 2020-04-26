@@ -37,7 +37,8 @@ class LinkController extends Controller
      */
     public function store(LinkRequest $request)
     {
-        $link = $this->service->save($request);
+        $link = $this->service->save($request->getDto(), auth()->user());
+
         return response()->json([
             'success' => __('alert-message.link_generate_success', ['link' => $link->alias]),
             'link' => [

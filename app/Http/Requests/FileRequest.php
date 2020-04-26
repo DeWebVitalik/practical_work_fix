@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\DuplicateFile;
+use App\TDO\FileTdo;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FileRequest extends FormRequest
@@ -16,8 +17,23 @@ class FileRequest extends FormRequest
     {
         return [
             'comment' => ['required', 'max:255'],
-            'date_remove' => ['nullable', 'date_format:d-m-Y', 'date','after:'.date('d-m-Y')],
+            'date_remove' => ['nullable', 'date_format:d-m-Y', 'date', 'after:' . date('d-m-Y')],
             'file' => ['required', 'image', 'max:5000', new DuplicateFile($this)],
         ];
+    }
+
+    /**
+     * Insert data
+     *
+     * @return FileTdo
+     */
+    public function getDto(): FileTdo
+    {
+        return new FileTdo(
+            $this->file('file')->getClientOriginalName(),
+            $this->get('comment'),
+            $this->get('date_remove'),
+            $this->file('file')
+        );
     }
 }

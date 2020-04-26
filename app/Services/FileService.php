@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Http\Requests\FileRequest;
 use App\File;
+use App\TDO\FileTdo;
+use App\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\UserFilePath;
 
@@ -14,19 +14,22 @@ class FileService
     /**
      * Upload the file and save the request data to the database
      *
-     * @param FileRequest $request
+     * @param FileTdo $request
+     * @param User $user
      * @return File
      * @throws \Exception
      */
-    public function save(FileRequest $request): File
+    public function save(FileTdo $request, User $user): File
     {
-        $fileName = $this->uploadFile($request);
+        $this->uploadFile($request);
 
         return File::create([
-            'user_id' => Auth::id(),
-            'file_name' => $fileName,
-            'comment' => $request->comment,
-            'date_remove' => $request->date_remove ? Carbon::parse($request->date_remove)->timestamp : null
+            'user_id' => $user->id,
+            'file_name' => $request->getFileName(),
+            'comment' => $request->getComment(),
+            'date_remove' => $request->getDateRemove()
+                ? Carbon::parse($request->getDateRemove())->timestamp
+                : null
         ]);
     }
 
@@ -62,19 +65,13 @@ class FileService
     /**
      * Upload file
      *
-     * @param FileRequest $request
-     * @return string
+     * @param FileTdo $request
      * @throws \Exception
      */
-    protected function uploadFile(FileRequest $request): string
+    protected function uploadFile(FileTdo $request): void
     {
-        if (!$request->hasFile('file')) {
-            throw new \Exception('File not found');
-        }
-
-        $fileName = $request->file('file')->getClientOriginalName();
-        $request->file('file')->storePubliclyAs(UserFilePath::getUserPersonalPath(), $fileName);
-        return $fileName;
+        $fileName = $request->getFile()->getClientOriginalName();
+        $request->getFile()->storePubliclyAs(UserFilePath::getUserPersonalPath(), $fileName);
     }
 
 }

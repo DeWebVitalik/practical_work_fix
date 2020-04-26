@@ -43,10 +43,11 @@ class FileController extends Controller
      *
      * @param FileRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function store(FileRequest $request)
     {
-        if ($file = $this->service->save($request)) {
+        if ($file = $this->service->save($request->getDto(),auth()->user())) {
             return redirect()->route('files.index')
                 ->with('success', __('alert-message.upload_success'));
         } else {
@@ -83,7 +84,7 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        if ($this->service->isFileDelete($file)) {
+        if ($file->trashed()) {
             abort(404);
         }
 

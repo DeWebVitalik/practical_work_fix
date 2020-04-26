@@ -3,28 +3,26 @@
 
 namespace App\Services;
 
-
-use App\File;
-use App\Http\Requests\LinkRequest;
 use App\Link;
-use Illuminate\Support\Facades\Auth;
+use App\TDO\LinkTdo;
 use Illuminate\Support\Str;
-
+use App\User;
 
 class LinkService
 {
     /**
      * Create alias for file
      *
-     * @param LinkRequest $request
+     * @param LinkTdo $request
+     * @param User $user
      * @return Link
      */
-    public function save(LinkRequest $request): Link
+    public function save(LinkTdo $request, User $user): Link
     {
         return Link::create([
-            'user_id' => Auth::id(),
-            'file_id' => $request->file_id,
-            'single_view' => empty($request->single_view) ? 0 : 1,
+            'user_id' => $user->id,
+            'file_id' => $request->getFileId(),
+            'single_view' => empty($request->getSingleView()) ? 0 : 1,
             'alias' => Str::random(32),
         ]);
     }
@@ -45,12 +43,12 @@ class LinkService
     }
 
     /**
-     * @param LinkRequest $request
+     * @param LinkTdo $request
      * @return bool
      */
-    public function isFileNotExist(LinkRequest $request): bool
+    public function isFileNotExist(LinkTdo $request): bool
     {
-        $file = File::where('id', $request->file_id)->get();
+        $file = File::where('id', $request->getFileId())->get();
         return $file->isEmpty();
     }
 
