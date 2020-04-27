@@ -33,10 +33,10 @@ class DuplicateFile implements Rule
      */
     public function passes($attribute, $value)
     {
-        $file = File::where([
-            ['file_name', '=', $this->fileName],
-            ['user_id', '=', Auth::id()],
-        ])->get();
+        $file = File::where('file_name', '=', $this->fileName)
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
         return $file->isEmpty() ? true : false;
     }
 
