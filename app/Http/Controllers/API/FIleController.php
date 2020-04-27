@@ -7,6 +7,7 @@ use App\Helpers\UserFilePath;
 use App\Http\Requests\FileRequest;
 use App\Services\FileService;
 use App\File;
+use App\Http\Resources\File as FileResource;
 use Illuminate\Support\Facades\Storage;
 
 class FIleController extends BaseController
@@ -23,15 +24,15 @@ class FIleController extends BaseController
      * Store a newly created file in storage.
      *
      * @param FileRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return FileResource|\Illuminate\Http\JsonResponse
      * @throws \Exception
      */
     public function store(FileRequest $request)
     {
         if ($file = $this->service->save($request->getDto(), auth()->user())) {
-            return $this->sendResponse($file, __('alert-message.upload_success'));
+            return new FileResource($file);
         } else {
-            return $this->sendResponse($file, __('alert-message.upload_error'));
+            return $this->sendError(__('alert-message.upload_error'));
         }
     }
 
@@ -64,10 +65,10 @@ class FIleController extends BaseController
      */
     public function destroy(File $file)
     {
-        if ($this->service->delete($file,auth()->id())) {
-            return $this->sendResponse($file, __('alert-message.delete_success'));
+        if ($this->service->delete($file, auth()->id())) {
+            return $this->sendInformationResponse(__('alert-message.delete_success'));
         } else {
-            return $this->sendResponse($file, __('alert-message.delete_error'));
+            return $this->sendError(__('alert-message.delete_error'));
         }
 
     }

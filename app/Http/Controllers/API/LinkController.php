@@ -4,9 +4,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\LinkRequest;
-use App\Link;
 use App\Services\LinkService;
-
+use App\Http\Resources\Link as LinkResources;
 
 class LinkController extends BaseController
 {
@@ -22,7 +21,7 @@ class LinkController extends BaseController
      * Generation link.
      *
      * @param LinkRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return LinkResources|\Illuminate\Http\JsonResponse
      */
     public function generation(LinkRequest $request)
     {
@@ -33,12 +32,7 @@ class LinkController extends BaseController
         $link = $this->service->save($request->getDto(), auth()->user());
 
         if ($link) {
-
-            return $this->sendResponse([
-                'url' => $link->alias,
-                'single_view' => $link->single_view === Link::SINGLE_VIEW
-            ], __('alert-message.generation_link_success'));
-
+            return new LinkResources($link);
         } else {
             return $this->sendError(__('alert-message.error_generation_link'));
         }
