@@ -25,7 +25,7 @@ class LinkController extends Controller
     public function index(Link $link)
     {
         return view('link/index', [
-            'links' => $link->links()
+            'links' => $link->links(auth()->id())
         ]);
     }
 

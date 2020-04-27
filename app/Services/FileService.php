@@ -21,7 +21,7 @@ class FileService
      */
     public function save(FileTdo $request, User $user): File
     {
-        $this->uploadFile($request);
+        $this->uploadFile($request, $user->id);
 
         return File::create([
             'user_id' => $user->id,
@@ -34,15 +34,16 @@ class FileService
     }
 
     /**
-     * Delete the file and set the status to deleted
+     *  Delete the file and set the status to deleted
      *
      * @param File $file
+     * @param int $userId
      * @return bool
      * @throws \Exception
      */
-    public function delete(File $file): bool
+    public function delete(File $file, int $userId): bool
     {
-        if (!Storage::delete(UserFilePath::getFilePath($file->file_name))) {
+        if (!Storage::delete(UserFilePath::getFilePath($file->file_name, $userId))) {
             return false;
         }
 
@@ -55,12 +56,14 @@ class FileService
      * Upload file
      *
      * @param FileTdo $request
+     * @param int $userId
      * @throws \Exception
      */
-    protected function uploadFile(FileTdo $request): void
+    protected function uploadFile(FileTdo $request, int $userId): void
     {
         $fileName = $request->getFile()->getClientOriginalName();
-        $request->getFile()->storePubliclyAs(UserFilePath::getUserPersonalPath(), $fileName);
+        $userPath = UserFilePath::getUserPersonalPath($userId);
+        $request->getFile()->storePubliclyAs($userPath, $fileName);
     }
 
 }

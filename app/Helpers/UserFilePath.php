@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UserFilePath
@@ -15,16 +14,13 @@ class UserFilePath
     /**
      * Returns the path to user folder
      *
+     * @param int $userId
      * @return string
      * @throws \Exception
      */
-    public static function getUserPersonalPath(): string
+    public static function getUserPersonalPath(int $userId): string
     {
-        if (!Auth::id()) {
-            throw new \Exception('Authorized user ID not found');
-        }
-
-        return self::USER_FILES_PATH . Auth::id();
+        return self::USER_FILES_PATH . $userId;
     }
 
     /**
@@ -37,15 +33,9 @@ class UserFilePath
      * @return string
      * @throws \Exception
      */
-    public static function getFilePath(string $fileName, int $userId = null, $fullPath = false): string
+    public static function getFilePath(string $fileName, int $userId, $fullPath = false): string
     {
-        if ($userId) {
-            $personalPath = self::USER_FILES_PATH . $userId;
-        } else {
-            $personalPath = self::getUserPersonalPath();
-        }
-
-        $filePath = $personalPath . '/' . $fileName;
+        $filePath = self::getUserPersonalPath($userId) . '/' . $fileName;
 
         $filePath = $fullPath ? storage_path('app/' . $filePath) : $filePath;
 

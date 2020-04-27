@@ -6,10 +6,15 @@ namespace App\Services;
 
 use App\File;
 use App\Link;
-use Illuminate\Support\Facades\Auth;
 
 class StatisticsService
 {
+    protected int $userId;
+
+    public function setUserId(int $userId): void
+    {
+        $this->userId = $userId;
+    }
 
     public function getStatistic(): array
     {
@@ -22,9 +27,16 @@ class StatisticsService
         ];
     }
 
+    /**
+     * @return int
+     * @throws \Exception
+     */
     protected function getUserId(): int
     {
-        return Auth::id();
+        if (empty($this->userId)) {
+            throw new \Exception('Attribute "userId" not set');
+        }
+        return $this->userId;
     }
 
     protected function getTotalViews(): int

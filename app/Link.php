@@ -85,11 +85,14 @@ class Link extends Model
 
     /**
      * Get links
+     *
+     * @param int $userId
+     * @return mixed
      */
-    public function links()
+    public function links(int $userId)
     {
         return $this->orderBy('created_at', 'DESC')
-            ->where('user_id', auth()->id())
+            ->where('user_id', $userId)
             ->with('file')
             ->paginate(10);
     }

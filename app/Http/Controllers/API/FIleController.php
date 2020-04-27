@@ -64,7 +64,7 @@ class FIleController extends BaseController
      */
     public function destroy(File $file)
     {
-        if ($this->service->delete($file)) {
+        if ($this->service->delete($file,auth()->id())) {
             return $this->sendResponse($file, __('alert-message.delete_success'));
         } else {
             return $this->sendResponse($file, __('alert-message.delete_error'));

@@ -109,14 +109,14 @@ class File extends Model
 
     /**
      * Get files
+     *
+     * @param int $userId
      * @return mixed
      */
-    public function files()
+    public function files(int $userId)
     {
         return $this->orderBy('created_at', 'DESC')
-            ->where([
-                ['user_id', auth()->id()]
-            ])
+            ->where('user_id', $userId)
             ->paginate(10);
     }
 

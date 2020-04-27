@@ -20,6 +20,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $this->service->setUserId(auth()->id());
         return view('home', $this->service->getStatistic());
     }
 }

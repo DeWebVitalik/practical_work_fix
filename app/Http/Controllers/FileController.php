@@ -24,7 +24,7 @@ class FileController extends Controller
     public function index(File $file)
     {
         return view('file.index', [
-            'files' => $file->files()
+            'files' => $file->files(auth()->id())
         ]);
     }
 
@@ -47,7 +47,7 @@ class FileController extends Controller
      */
     public function store(FileRequest $request)
     {
-        if ($file = $this->service->save($request->getDto(),auth()->user())) {
+        if ($file = $this->service->save($request->getDto(), auth()->user())) {
             return redirect()->route('files.index')
                 ->with('success', __('alert-message.upload_success'));
         } else {
@@ -84,7 +84,7 @@ class FileController extends Controller
             abort(404);
         }
 
-        if ($this->service->delete($file)) {
+        if ($this->service->delete($file, auth()->id())) {
             return redirect()->route('files.index')
                 ->with('success', __('alert-message.delete_success'));
         } else {
