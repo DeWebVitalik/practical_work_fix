@@ -40,20 +40,6 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::created(function ($model) {
-            event('createUser', $model);
-        });
-    }
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
