@@ -16,7 +16,6 @@ class UserFilePath
      *
      * @param int $userId
      * @return string
-     * @throws \Exception
      */
     public static function getUserPersonalPath(int $userId): string
     {
@@ -28,10 +27,9 @@ class UserFilePath
      * The path includes a file name
      *
      * @param string $fileName
-     * @param int|null $userId
+     * @param int $userId
      * @param bool $fullPath
      * @return string
-     * @throws \Exception
      */
     public static function getFilePath(string $fileName, int $userId, $fullPath = false): string
     {

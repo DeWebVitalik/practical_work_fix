@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Exceptions\ServiceException;
 use App\File;
 use App\Link;
 
@@ -29,12 +30,12 @@ class StatisticsService
 
     /**
      * @return int
-     * @throws \Exception
+     * @throws ServiceException
      */
     protected function getUserId(): int
     {
         if (empty($this->userId)) {
-            throw new \Exception('Attribute "userId" not set');
+            throw new ServiceException('Attribute "userId" not set');
         }
         return $this->userId;
     }

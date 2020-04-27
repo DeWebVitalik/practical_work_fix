@@ -22,6 +22,7 @@ class LinkController extends BaseController
      *
      * @param LinkRequest $request
      * @return LinkResources|\Illuminate\Http\JsonResponse
+     * @throws \App\Exceptions\ServiceException
      */
     public function generation(LinkRequest $request)
     {
@@ -30,11 +31,7 @@ class LinkController extends BaseController
         }
 
         $link = $this->service->save($request->getDto(), auth()->user());
+        return new LinkResources($link);
 
-        if ($link) {
-            return new LinkResources($link);
-        } else {
-            return $this->sendError(__('alert-message.error_generation_link'));
-        }
     }
 }

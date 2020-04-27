@@ -3,6 +3,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\ServiceException;
 use App\Link;
 use App\File;
 use App\TDO\LinkTdo;
@@ -17,15 +18,22 @@ class LinkService
      * @param LinkTdo $request
      * @param User $user
      * @return Link
+     * @throws ServiceException
      */
     public function save(LinkTdo $request, User $user): Link
     {
-        return Link::create([
+        $link = Link::create([
             'user_id' => $user->id,
             'file_id' => $request->getFileId(),
             'single_view' => empty($request->getSingleView()) ? 0 : 1,
             'alias' => Str::random(32),
         ]);
+
+        if (!$link) {
+            throw new ServiceException(__('alert-message.upload_error'));
+        }
+
+        return $link;
     }
 
     /**

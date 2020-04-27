@@ -24,7 +24,6 @@ class ViewController extends Controller
      *
      * @param string $alias
      * @return \Illuminate\Http\Response
-     * @throws \Exception
      */
     public function index(string $alias)
     {
@@ -32,11 +31,7 @@ class ViewController extends Controller
 
         $filePath = UserFilePath::getFilePath($link->file->file_name, $link->user_id);
 
-        if (!Storage::exists($filePath)) {
-            abort(404);
-        }
-
-        if (!$this->service->checkAccess($link)) {
+        if (!$this->service->checkAccess($link) || !Storage::exists($filePath)) {
             abort(404);
         }
 

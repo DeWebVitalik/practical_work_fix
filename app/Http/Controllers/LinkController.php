@@ -34,6 +34,7 @@ class LinkController extends Controller
      *
      * @param LinkRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \App\Exceptions\ServiceException
      */
     public function store(LinkRequest $request)
     {

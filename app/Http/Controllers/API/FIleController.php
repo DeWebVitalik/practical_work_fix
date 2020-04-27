@@ -24,16 +24,13 @@ class FIleController extends BaseController
      * Store a newly created file in storage.
      *
      * @param FileRequest $request
-     * @return FileResource|\Illuminate\Http\JsonResponse
-     * @throws \Exception
+     * @return FileResource
+     * @throws \App\Exceptions\ServiceException
      */
     public function store(FileRequest $request)
     {
-        if ($file = $this->service->save($request->getDto(), auth()->user())) {
-            return new FileResource($file);
-        } else {
-            return $this->sendError(__('alert-message.upload_error'));
-        }
+        $file = $this->service->save($request->getDto(), auth()->user());
+        return new FileResource($file);
     }
 
 
@@ -48,7 +45,7 @@ class FIleController extends BaseController
     {
         $filePath = UserFilePath::getFilePath($file->file_name, $file->user_id, true);
 
-        if (Storage::exists($filePath)) {
+        if (!Storage::exists(UserFilePath::getFilePath($file->file_name, $file->user_id))) {
             return $this->sendError(__('alert-message.file_not_found'));
         }
 
@@ -61,16 +58,12 @@ class FIleController extends BaseController
      *
      * @param File $file
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
+     * @throws \App\Exceptions\ServiceException
      */
     public function destroy(File $file)
     {
-        if ($this->service->delete($file, auth()->id())) {
-            return $this->sendInformationResponse(__('alert-message.delete_success'));
-        } else {
-            return $this->sendError(__('alert-message.delete_error'));
-        }
-
+        $this->service->delete($file, auth()->id());
+        return $this->sendInformationResponse(__('alert-message.delete_success'));
     }
 
 }

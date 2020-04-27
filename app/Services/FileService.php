@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\ServiceException;
 use App\File;
 use App\TDO\FileTdo;
 use App\User;
@@ -17,13 +18,13 @@ class FileService
      * @param FileTdo $request
      * @param User $user
      * @return File
-     * @throws \Exception
+     * @throws ServiceException
      */
     public function save(FileTdo $request, User $user): File
     {
         $this->uploadFile($request, $user->id);
 
-        return File::create([
+        $file=File::create([
             'user_id' => $user->id,
             'file_name' => $request->getFileName(),
             'comment' => $request->getComment(),
@@ -31,25 +32,30 @@ class FileService
                 ? Carbon::parse($request->getDateRemove())->timestamp
                 : null
         ]);
+
+        if(!$file){
+            throw new ServiceException(__('alert-message.upload_error'));
+        }
+
+        return $file;
     }
 
     /**
-     *  Delete the file and set the status to deleted
+     * Delete the file and set the status to deleted
      *
      * @param File $file
      * @param int $userId
-     * @return bool
-     * @throws \Exception
+     * @throws ServiceException
      */
-    public function delete(File $file, int $userId): bool
+    public function delete(File $file, int $userId): void
     {
         if (!Storage::delete(UserFilePath::getFilePath($file->file_name, $userId))) {
-            return false;
+            throw new ServiceException("Error deleting file '{$file->file_name}' from repository");
         }
 
-        $file->links()->delete();
-
-        return $file->delete();
+        if (!$file->links()->delete() || !$file->delete()) {
+            throw new ServiceException(__('alert-message.delete_error'));
+        }
     }
 
     /**

@@ -43,24 +43,21 @@ class FileController extends Controller
      *
      * @param FileRequest $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @throws \App\Exceptions\ServiceException
      */
     public function store(FileRequest $request)
     {
-        if ($file = $this->service->save($request->getDto(), auth()->user())) {
-            return redirect()->route('files.index')
-                ->with('success', __('alert-message.upload_success'));
-        } else {
-            return redirect()->route('files.create')
-                ->with('error', __('alert-message.upload_error'));
-        }
+        $this->service->save($request->getDto(), auth()->user());
+        return redirect()
+            ->route('files.index')
+            ->with('success', __('alert-message.upload_success'));
     }
 
     /**
      * Display the specified file.
      *
      * @param File $file
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(File $file)
     {
@@ -76,21 +73,16 @@ class FileController extends Controller
      *
      * @param File $file
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @throws \App\Exceptions\ServiceException
      */
     public function destroy(File $file)
     {
-        if ($file->trashed()) {
-            abort(404);
-        }
+        $this->service->delete($file, auth()->id());
 
-        if ($this->service->delete($file, auth()->id())) {
-            return redirect()->route('files.index')
-                ->with('success', __('alert-message.delete_success'));
-        } else {
-            return redirect()->route('files.index')
-                ->with('error', __('alert-message.delete_error'));
-        }
+        return redirect()
+            ->route('files.index')
+            ->with('success', __('alert-message.delete_success'));
+
     }
 
 }
