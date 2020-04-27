@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FileRequest;
 use App\Services\FileService;
 use App\File;
+use App\Services\UploadFileService;
 
 class FileController extends Controller
 {
     protected FileService $service;
+    protected UploadFileService $uploadFileService;
 
-    public function __construct(FileService $service)
+    public function __construct(FileService $service, UploadFileService $uploadFileService)
     {
         $this->service = $service;
+        $this->uploadFileService = $uploadFileService;
     }
 
     /**
@@ -48,6 +51,9 @@ class FileController extends Controller
     public function store(FileRequest $request)
     {
         $this->service->save($request->getDto(), auth()->user());
+
+        $this->uploadFileService->upload($request->getDto(), auth()->id());
+
         return redirect()
             ->route('files.index')
             ->with('success', __('alert-message.upload_success'));

@@ -7,6 +7,7 @@ use App\File;
 use App\TDO\FileTdo;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\UserFilePath;
 
@@ -22,9 +23,7 @@ class FileService
      */
     public function save(FileTdo $request, User $user): File
     {
-        $this->uploadFile($request, $user->id);
-
-        $file=File::create([
+        $file = File::create([
             'user_id' => $user->id,
             'file_name' => $request->getFileName(),
             'comment' => $request->getComment(),
@@ -33,7 +32,7 @@ class FileService
                 : null
         ]);
 
-        if(!$file){
+        if (!$file) {
             throw new ServiceException(__('alert-message.upload_error'));
         }
 
@@ -53,23 +52,14 @@ class FileService
             throw new ServiceException("Error deleting file '{$file->file_name}' from repository");
         }
 
-        if (!$file->links()->delete() || !$file->delete()) {
+        DB::beginTransaction();
+        try {
+            $file->links()->delete();
+            $file->delete();
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollback();
             throw new ServiceException(__('alert-message.delete_error'));
         }
     }
-
-    /**
-     * Upload file
-     *
-     * @param FileTdo $request
-     * @param int $userId
-     * @throws \Exception
-     */
-    protected function uploadFile(FileTdo $request, int $userId): void
-    {
-        $fileName = $request->getFile()->getClientOriginalName();
-        $userPath = UserFilePath::getUserPersonalPath($userId);
-        $request->getFile()->storePubliclyAs($userPath, $fileName);
-    }
-
 }
