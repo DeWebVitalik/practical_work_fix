@@ -32,7 +32,7 @@ class Menu extends AbstractWidget
         foreach ($this->config as $item) {
             $active = false;
 
-            if (request()->url() == $item['link']) {
+            if (request()->url() === $item['link']) {
                 $active = true;
             }
 

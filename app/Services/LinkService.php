@@ -36,7 +36,7 @@ class LinkService
      */
     public function checkAccess(Link $link): bool
     {
-        if ($link->single_view == Link::SINGLE_VIEW && $link->views >= 1) {
+        if ($link->single_view === Link::SINGLE_VIEW && $link->views >= 1) {
             return false;
         }
 

@@ -36,7 +36,7 @@ class LinkController extends BaseController
 
             return $this->sendResponse([
                 'url' => $link->alias,
-                'single_view' => $link->single_view == 1 ? true : false
+                'single_view' => $link->single_view === Link::SINGLE_VIEW
             ], __('alert-message.generation_link_success'));
 
         } else {
